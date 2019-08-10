@@ -5,9 +5,12 @@ public class NumberOut {
     }
 
     public String out() {
+        String res = null;
         if (num%3 == 0){
-            return "Fizz";
+            res = "Fizz";
+        }else {
+            res = Integer.toString(num);
         }
-        return Integer.toString(num);
+        return res;
     }
 }
