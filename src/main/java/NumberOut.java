@@ -6,7 +6,9 @@ public class NumberOut {
 
     public String out() {
         String res = null;
-        if (num%3 == 0){
+        if (num%5==0){
+            res = "Buzz";
+        }else if (num%3 == 0){
             res = "Fizz";
         }else {
             res = Integer.toString(num);
