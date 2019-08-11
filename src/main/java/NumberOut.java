@@ -9,7 +9,8 @@ public class NumberOut {
         String res = "";
         if (isRelatedTo(3) && isRelatedTo(5)){
             res = "FizzBuzz";
-        }else if (isRelatedTo(5)){
+        }
+        if (res=="" && isRelatedTo(5)){
             res = "Buzz";
         }
         if (res=="" && isRelatedTo(3)){
