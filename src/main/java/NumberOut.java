@@ -9,6 +9,9 @@ public class NumberOut {
         if (num%3 == 0){
             res = "Fizz";
         }
+        if (res==""&& num%5==0) {
+            res = "Buzz";
+        }
         if (res=="") {
             res = Integer.toString(num);
         }

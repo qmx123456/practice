@@ -7,7 +7,6 @@ public class NumberOutTest {
         assertOut(1, "1");
     }
 
-
     @Test
     public void should_out_Fizz_when_num_is_divisible_by_3(){
         assertOut(3, "Fizz");
