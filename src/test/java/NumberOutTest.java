@@ -17,6 +17,11 @@ public class NumberOutTest {
         assertOut(5, "Buzz");
     }
 
+    @Test
+    public void should_out_FizzBuzz_when_num_is_divisible_by_5_and_3(){
+        assertOut(15, "FizzBuzz");
+    }
+
     private void assertOut(int i, String s) {
         NumberOut numberOut = new NumberOut(i);
         Assert.assertEquals(s, numberOut.out());
