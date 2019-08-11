@@ -6,7 +6,10 @@ public class NumberOut {
 
     public String out() {
         String res = "";
-        if (isRelatedTo(3)){
+        if (isRelatedTo(3) && isRelatedTo(5)) {
+            res = "FizzBuzz";
+        }
+        if (res=="" && isRelatedTo(3)){
             res = "Fizz";
         }
         if (res=="" && isRelatedTo(5)) {
