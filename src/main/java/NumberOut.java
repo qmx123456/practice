@@ -10,11 +10,8 @@ public class NumberOut {
         if (isRelatedTo(3)){
             res = "Fizz";
         }
-        if (isRelatedTo(3) && isRelatedTo(5)){
-            res = "FizzBuzz";
-        }
-        if (res=="" && isRelatedTo(5)){
-            res = "Buzz";
+        if (isRelatedTo(5)){
+            res += "Buzz";
         }
         if(res==""){
             res = Integer.toString(num);
