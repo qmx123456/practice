@@ -11,7 +11,8 @@ public class NumberOut {
             res = "FizzBuzz";
         }else if (isRelatedTo(5)){
             res = "Buzz";
-        }else if (isRelatedTo(3)){
+        }
+        if (res=="" && isRelatedTo(3)){
             res = "Fizz";
         }
         if(res==""){
