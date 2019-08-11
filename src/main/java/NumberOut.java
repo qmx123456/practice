@@ -6,15 +6,19 @@ public class NumberOut {
 
     public String out() {
         String res = "";
-        if (num%3 == 0){
+        if (isRelatedTo(3)){
             res = "Fizz";
         }
-        if (res==""&& num%5==0) {
+        if (res=="" && isRelatedTo(5)) {
             res = "Buzz";
         }
         if (res=="") {
             res = Integer.toString(num);
         }
         return res;
+    }
+
+    private boolean isRelatedTo(int i) {
+        return num % i == 0;
     }
 }
