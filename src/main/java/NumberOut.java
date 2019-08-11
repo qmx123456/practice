@@ -8,9 +8,10 @@ public class NumberOut {
         String res = "";
         if (num%3 == 0){
             res = "Fizz";
-            return res;
         }
-        res = Integer.toString(num);
+        if (res=="") {
+            res = Integer.toString(num);
+        }
         return res;
     }
 }
