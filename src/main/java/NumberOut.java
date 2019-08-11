@@ -6,14 +6,15 @@ public class NumberOut {
     }
 
     public String out() {
-        String res = null;
+        String res = "";
         if (isRelatedTo(3) && isRelatedTo(5)){
             res = "FizzBuzz";
         }else if (isRelatedTo(5)){
             res = "Buzz";
         }else if (isRelatedTo(3)){
             res = "Fizz";
-        }else {
+        }
+        if(res==""){
             res = Integer.toString(num);
         }
         return res;
