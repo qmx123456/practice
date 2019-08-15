@@ -1,6 +1,6 @@
 public class SchemaArg {
 
     public IFlag getLogging() {
-        return new FlagArg();
+        return new Logging();
     }
 }

@@ -1,7 +1,7 @@
 public interface IFlag {
     String getFlag();
 
-    boolean getDefaultValue();
+    Object getDefaultValue();
 
-    String getType();
+    Object getType();
 }
