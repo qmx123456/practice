@@ -1,9 +1,6 @@
 public class SchemaArg {
-    public String getLoggingFlag() {
-        return "-l";
-    }
 
-    public boolean getLoggingDefaultValue() {
-        return false;
+    public FlagArg getLogging() {
+        return new FlagArg();
     }
 }
