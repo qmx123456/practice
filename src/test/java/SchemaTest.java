@@ -5,9 +5,9 @@ public class SchemaTest {
     @Test
     public void should_return_logging_when_get_it(){
         SchemaArg schemaArg = new SchemaArg();
-        Assert.assertEquals("-l", schemaArg.getLogging().getFlag());
-        Assert.assertEquals(false,schemaArg.getLogging().getDefaultValue());
-        Assert.assertEquals(boolean.class,schemaArg.getLogging().getType());
+        Assert.assertEquals("-l", schemaArg.getLogFlag().getFlag());
+        Assert.assertEquals(false,schemaArg.getLogFlag().getDefaultValue());
+        Assert.assertEquals(boolean.class,schemaArg.getLogFlag().getType());
     }
 
     @Test

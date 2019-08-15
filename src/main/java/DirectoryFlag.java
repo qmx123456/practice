@@ -1,13 +1,13 @@
-public class PortArg implements IFlag {
+public class DirectoryFlag implements IFlag {
     public String getFlag() {
-        return "-p";
+        return "-d";
     }
 
     public Object getDefaultValue() {
-        return 8080;
+        return "";
     }
 
     public Object getType() {
-        return Integer.class;
+        return String.class;
     }
 }

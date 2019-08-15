@@ -1,4 +1,4 @@
-public class Logging implements IFlag {
+public class LogFlag implements IFlag {
     public String getFlag() {
         return "-l";
     }

@@ -3,22 +3,22 @@ import java.util.Map;
 
 public class SchemaArg {
 
-    private final Logging logging;
-    private final PortArg arg;
+    private final LogFlag logFlag;
+    private final PortFlag arg;
     private Map<String, IFlag> flag;
     private IFlag directory;
 
     public SchemaArg(){
         flag=new HashMap<String, IFlag>();
-        logging = new Logging();
-        arg = new PortArg();
-        directory=new Directory();
-        flag.put(logging.getFlag(),logging);
+        logFlag = new LogFlag();
+        arg = new PortFlag();
+        directory=new DirectoryFlag();
+        flag.put(logFlag.getFlag(), logFlag);
         flag.put(arg.getFlag(), arg);
         flag.put(directory.getFlag(), directory);
     }
-    public IFlag getLogging() {
-        return logging;
+    public IFlag getLogFlag() {
+        return logFlag;
     }
 
     public IFlag getPortArg() {
