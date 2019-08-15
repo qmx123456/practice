@@ -1,4 +1,4 @@
-public class FlagArg {
+public class FlagArg implements IFlag {
     public String getFlag() {
         return "-l";
     }
