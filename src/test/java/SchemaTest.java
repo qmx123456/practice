@@ -6,5 +6,6 @@ public class SchemaTest {
     public void should_return_logging_flag_when_get_its_flag(){
         SchemaArg schemaArg = new SchemaArg();
         Assert.assertEquals("-l", schemaArg.getLoggingFlag());
+        Assert.assertEquals(false,schemaArg.getLoggingDefaultValue());
     }
 }
