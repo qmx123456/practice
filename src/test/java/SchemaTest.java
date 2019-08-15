@@ -19,8 +19,16 @@ public class SchemaTest {
     }
 
     @Test
+    public void should_return_directory_when_get_it(){
+        SchemaArg schemaArg = new SchemaArg();
+        Assert.assertEquals("-d", schemaArg.getDirectory().getFlag());
+        Assert.assertEquals("",schemaArg.getDirectory().getDefaultValue());
+        Assert.assertEquals(String.class,schemaArg.getDirectory().getType());
+    }
+
+    @Test
     public void should_return_flag_count_when_get_it(){
         SchemaArg schemaArg = new SchemaArg();
-        Assert.assertEquals(2, schemaArg.getFlagCount());
+        Assert.assertEquals(3, schemaArg.getFlagCount());
     }
 }
