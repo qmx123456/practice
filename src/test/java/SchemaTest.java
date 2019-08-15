@@ -7,5 +7,6 @@ public class SchemaTest {
         SchemaArg schemaArg = new SchemaArg();
         Assert.assertEquals("-l", schemaArg.getLogging().getFlag());
         Assert.assertEquals(false,schemaArg.getLogging().getDefaultValue());
+        Assert.assertEquals("bool",schemaArg.getLogging().getType());
     }
 }

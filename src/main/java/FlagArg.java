@@ -6,4 +6,8 @@ public class FlagArg {
     public boolean getDefaultValue() {
         return false;
     }
+
+    public String getType() {
+        return "bool";
+    }
 }
