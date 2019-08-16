@@ -70,4 +70,11 @@ public class SchemaTest {
         String match = schemaArg.match("-p");
         Assert.assertEquals(ParserMes.needPortNum, match);
     }
+
+    @Test
+    public void should_return_mes_when_input_p_l(){
+        SchemaArg schemaArg = new SchemaArg();
+        String match = schemaArg.match("-p l");
+        Assert.assertEquals(ParserMes.needPortNum, match);
+    }
 }

@@ -26,9 +26,14 @@ public class PortFlag implements IFlag {
     public int set(String[] split, int index) {
         int i = 0;
         if (i != split.length - 1) {
-            value = Integer.parseInt(split[i + 1]);
-            parserRes = ParserMes.success;
-            index = index + 2;
+            try {
+                value = Integer.parseInt(split[i + 1]);
+                parserRes = ParserMes.success;
+                index = index + 2;
+            }catch (Exception e){
+                parserRes = ParserMes.needPortNum;
+                index = index + 1;
+            }
         } else {
             parserRes = ParserMes.needPortNum;
             index = index + 1;

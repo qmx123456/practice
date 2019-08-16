@@ -8,15 +8,16 @@ public class SchemaArg {
     private Map<String, IFlag> flag;
     private IFlag directory;
 
-    public SchemaArg(){
-        flag=new HashMap<String, IFlag>();
+    public SchemaArg() {
+        flag = new HashMap<String, IFlag>();
         logFlag = new LogFlag();
         portFlag = new PortFlag();
-        directory=new DirectoryFlag();
+        directory = new DirectoryFlag();
         flag.put(logFlag.getFlag(), logFlag);
         flag.put(portFlag.getFlag(), portFlag);
         flag.put(directory.getFlag(), directory);
     }
+
     public IFlag getLogFlag() {
         return logFlag;
     }
@@ -35,32 +36,32 @@ public class SchemaArg {
 
     public String match(String s) {
         String[] split = s.split(" ");
-        if (split.length == 0){
+        if (split.length == 0) {
             return ParserMes.wrong;
         }
 
         String res = "";
         boolean contained = false;
         boolean turn = false;
-        int i=0;
-        for (;i<split.length;){
-            if (split[i].equals(logFlag.getFlag())){
+        int i = 0;
+        for (; i < split.length; ) {
+            if (split[i].equals(logFlag.getFlag())) {
                 contained = true;
                 turn = true;
                 i = logFlag.set(split, i);
                 continue;
             }
-            if (split[i].equals(portFlag.getFlag())){
+            if (split[i].equals(portFlag.getFlag())) {
                 contained = true;
                 turn = true;
                 i = portFlag.set(split, i);
             }
-            if (!turn){
+            if (!turn) {
                 i = i + 1;
-                turn = false;
             }
+            turn = false;
         }
-        if (!contained){
+        if (!contained) {
             return ParserMes.wrong;
         }
         res += logFlag.getParserRes();
