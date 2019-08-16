@@ -48,4 +48,11 @@ public class SchemaTest {
         Assert.assertEquals(ParserMes.success, match);
         Assert.assertEquals(true, schemaArg.getLogFlag().getValue());
     }
+
+    @Test
+    public void should_return_mes_when_input_l_p(){
+        SchemaArg schemaArg = new SchemaArg();
+        String match = schemaArg.match("l p");
+        Assert.assertEquals(ParserMes.wrong, match);
+    }
 }

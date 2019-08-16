@@ -39,7 +39,10 @@ public class SchemaArg {
             return ParserMes.wrong;
         }
         String res = "";
-        res +=  logFlag.set(split);
+        String logMatcher = logFlag.set(split);
+        if (logMatcher == ParserMes.notContained){
+            return ParserMes.wrong;
+        }
         return res;
     }
 }

@@ -20,11 +20,15 @@ public class LogFlag implements IFlag {
     }
 
     public String set(String[] split) {
-        for (int i=0;i<split.length;i++){
+        int i=0;
+        for (;i<split.length;i++){
             if (split[i].equals(getFlag())){
                 value = true;
                 break;
             }
+        }
+        if (i == split.length){
+            return ParserMes.notContained;
         }
         return ParserMes.success;
     }
