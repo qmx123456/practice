@@ -55,4 +55,12 @@ public class SchemaTest {
         String match = schemaArg.match("l p");
         Assert.assertEquals(ParserMes.wrong, match);
     }
+
+    @Test
+    public void should_set_prt_when_input_p_80(){
+        SchemaArg schemaArg = new SchemaArg();
+        String match = schemaArg.match("-p 80");
+        Assert.assertEquals(ParserMes.success, match);
+        Assert.assertEquals(80, schemaArg.getPortArg().getValue());
+    }
 }

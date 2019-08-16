@@ -40,7 +40,8 @@ public class SchemaArg {
         }
         String res = "";
         String logMatcher = logFlag.set(split);
-        if (logMatcher == ParserMes.notContained){
+        String portMatcher = portFlag.set(split);
+        if (logMatcher == ParserMes.notContained && portMatcher == ParserMes.notContained){
             return ParserMes.wrong;
         }
         return res;

@@ -20,6 +20,16 @@ public class PortFlag implements IFlag {
     }
 
     public String set(String[] split) {
-        return null;
+        int i=0;
+        for (;i<split.length;i++){
+            if (split[i].equals(getFlag())){
+                value = Integer.parseInt(split[i+1]);
+                break;
+            }
+        }
+        if (i == split.length){
+            return ParserMes.notContained;
+        }
+        return ParserMes.success;
     }
 }
