@@ -7,6 +7,7 @@ public class SchemaTest {
         SchemaArg schemaArg = new SchemaArg();
         Assert.assertEquals("-l", schemaArg.getLogFlag().getFlag());
         Assert.assertEquals(false,schemaArg.getLogFlag().getDefaultValue());
+        Assert.assertEquals(new LogFlag().getDefaultValue(),schemaArg.getLogFlag().getValue());
         Assert.assertEquals(boolean.class,schemaArg.getLogFlag().getType());
     }
 
@@ -15,6 +16,7 @@ public class SchemaTest {
         SchemaArg schemaArg = new SchemaArg();
         Assert.assertEquals("-p", schemaArg.getPortArg().getFlag());
         Assert.assertEquals(8080,schemaArg.getPortArg().getDefaultValue());
+        Assert.assertEquals(new PortFlag().getDefaultValue(),schemaArg.getPortArg().getValue());
         Assert.assertEquals(Integer.class,schemaArg.getPortArg().getType());
     }
 
@@ -23,6 +25,7 @@ public class SchemaTest {
         SchemaArg schemaArg = new SchemaArg();
         Assert.assertEquals("-d", schemaArg.getDirectory().getFlag());
         Assert.assertEquals("",schemaArg.getDirectory().getDefaultValue());
+        Assert.assertEquals(new DirectoryFlag().getDefaultValue(),schemaArg.getDirectory().getValue());
         Assert.assertEquals(String.class,schemaArg.getDirectory().getType());
     }
 

@@ -4,4 +4,6 @@ public interface IFlag {
     Object getDefaultValue();
 
     Object getType();
+
+    Object getValue();
 }

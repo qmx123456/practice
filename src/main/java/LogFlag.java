@@ -1,4 +1,8 @@
 public class LogFlag implements IFlag {
+    boolean value;
+    public LogFlag(){
+        this.value=(Boolean) getDefaultValue();
+    }
     public String getFlag() {
         return "-l";
     }
@@ -9,5 +13,9 @@ public class LogFlag implements IFlag {
 
     public Class<Boolean> getType() {
         return boolean.class;
+    }
+
+    public Object getValue() {
+        return value;
     }
 }

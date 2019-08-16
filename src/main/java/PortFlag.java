@@ -1,4 +1,8 @@
 public class PortFlag implements IFlag {
+    int value;
+    public PortFlag(){
+        this.value = (Integer) getDefaultValue();
+    }
     public String getFlag() {
         return "-p";
     }
@@ -9,5 +13,9 @@ public class PortFlag implements IFlag {
 
     public Object getType() {
         return Integer.class;
+    }
+
+    public Object getValue() {
+        return value;
     }
 }
