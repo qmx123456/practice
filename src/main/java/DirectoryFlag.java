@@ -20,7 +20,7 @@ public class DirectoryFlag implements IFlag {
         return value;
     }
 
-    public String set(String[] split) {
-        return null;
+    public int set(String[] split, int index) {
+        return 0;
     }
 }

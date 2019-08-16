@@ -68,6 +68,6 @@ public class SchemaTest {
     public void should_return_mes_when_input_p(){
         SchemaArg schemaArg = new SchemaArg();
         String match = schemaArg.match("-p");
-        Assert.assertEquals(ParserMes.wrong, match);
+        Assert.assertEquals(ParserMes.needPortNum, match);
     }
 }

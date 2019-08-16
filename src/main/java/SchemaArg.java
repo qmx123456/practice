@@ -38,12 +38,33 @@ public class SchemaArg {
         if (split.length == 0){
             return ParserMes.wrong;
         }
+
         String res = "";
-        String logMatcher = logFlag.set(split);
-        String portMatcher = portFlag.set(split);
-        if (logMatcher == ParserMes.notContained && portMatcher == ParserMes.notContained){
+        boolean contained = false;
+        boolean turn = false;
+        int i=0;
+        for (;i<split.length;){
+            if (split[i].equals(logFlag.getFlag())){
+                contained = true;
+                turn = true;
+                i = logFlag.set(split, i);
+                continue;
+            }
+            if (split[i].equals(portFlag.getFlag())){
+                contained = true;
+                turn = true;
+                i = portFlag.set(split, i);
+            }
+            if (!turn){
+                i = i + 1;
+                turn = false;
+            }
+        }
+        if (!contained){
             return ParserMes.wrong;
         }
+        res += logFlag.getParserRes();
+        res += portFlag.getParserRes();
         return res;
     }
 }

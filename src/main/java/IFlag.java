@@ -7,5 +7,5 @@ public interface IFlag {
 
     Object getValue();
 
-    String set(String[] split);
+    int set(String[] split, int index);
 }

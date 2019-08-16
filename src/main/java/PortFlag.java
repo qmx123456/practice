@@ -1,8 +1,12 @@
 public class PortFlag implements IFlag {
     int value;
-    public PortFlag(){
+    String parserRes;
+
+    public PortFlag() {
         this.value = (Integer) getDefaultValue();
+        parserRes = "";
     }
+
     public String getFlag() {
         return "-p";
     }
@@ -19,19 +23,20 @@ public class PortFlag implements IFlag {
         return value;
     }
 
-    public String set(String[] split) {
-        int i=0;
-        for (;i<split.length;i++){
-            if (split[i].equals(getFlag())){
-                if (i!=split.length-1) {
-                    value = Integer.parseInt(split[i + 1]);
-                    break;
-                }
-            }
+    public int set(String[] split, int index) {
+        int i = 0;
+        if (i != split.length - 1) {
+            value = Integer.parseInt(split[i + 1]);
+            parserRes = ParserMes.success;
+            index = index + 2;
+        } else {
+            parserRes = ParserMes.needPortNum;
+            index = index + 1;
         }
-        if (i == split.length){
-            return ParserMes.notContained;
-        }
-        return ParserMes.success;
+        return index;
+    }
+
+    public String getParserRes() {
+        return parserRes;
     }
 }

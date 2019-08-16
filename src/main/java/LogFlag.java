@@ -1,8 +1,12 @@
 public class LogFlag implements IFlag {
+    private String parserRes;
     boolean value;
-    public LogFlag(){
-        this.value=(Boolean) getDefaultValue();
+
+    public LogFlag() {
+        this.value = (Boolean) getDefaultValue();
+        parserRes = "";
     }
+
     public String getFlag() {
         return "-l";
     }
@@ -19,17 +23,14 @@ public class LogFlag implements IFlag {
         return value;
     }
 
-    public String set(String[] split) {
-        int i=0;
-        for (;i<split.length;i++){
-            if (split[i].equals(getFlag())){
-                value = true;
-                break;
-            }
-        }
-        if (i == split.length){
-            return ParserMes.notContained;
-        }
-        return ParserMes.success;
+    public int set(String[] split, int index) {
+        value = true;
+        parserRes = ParserMes.success;
+        index = index+1;
+        return index;
+    }
+
+    public String getParserRes() {
+        return parserRes;
     }
 }
