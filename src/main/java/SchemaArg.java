@@ -78,4 +78,12 @@ public class SchemaArg {
             flag.clearParserRes();
         }
     }
+
+    public ArrayList<String> out() {
+        ArrayList<String> out = new ArrayList<String>();
+        out.add(logFlag.out());
+        out.add(portFlag.out());
+        out.add(directory.out());
+        return out;
+    }
 }

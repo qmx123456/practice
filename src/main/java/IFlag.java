@@ -12,4 +12,6 @@ public interface IFlag {
     String getParserRes();
 
     void clearParserRes();
+
+    String out();
 }

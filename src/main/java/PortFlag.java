@@ -47,4 +47,8 @@ public class PortFlag implements IFlag {
     public void clearParserRes() {
         parserRes = "";
     }
+
+    public String out() {
+        return "port: " + String.valueOf(value);
+    }
 }

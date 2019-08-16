@@ -37,4 +37,8 @@ public class LogFlag implements IFlag {
     public void clearParserRes() {
 
     }
+
+    public String out() {
+        return "log: " + String.valueOf(value);
+    }
 }
