@@ -109,4 +109,24 @@ public class SchemaTest {
         Assert.assertEquals("/p/usr", schemaArg.getDirectory().getValue());
         Assert.assertEquals(80, schemaArg.getPortArg().getValue());
     }
+
+    @Test
+    public void should_return_mes_when_input_twice(){
+        SchemaArg schemaArg = new SchemaArg();
+        ArrayList<String> match = schemaArg.match("-d");
+        Assert.assertEquals(1, match.size());
+
+        ArrayList<String> match1 = schemaArg.match("-p");
+        Assert.assertEquals(1, match1.size());
+    }
+
+    @Test
+    public void should_return_mes_when_input_twice_inverse(){
+        SchemaArg schemaArg = new SchemaArg();
+        ArrayList<String> match = schemaArg.match("-p");
+        Assert.assertEquals(1, match.size());
+
+        ArrayList<String> match1 = schemaArg.match("-d");
+        Assert.assertEquals(1, match1.size());
+    }
 }

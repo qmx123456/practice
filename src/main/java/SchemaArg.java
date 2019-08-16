@@ -75,6 +75,7 @@ public class SchemaArg {
         String s = flag.getParserRes();
         if (s != "") {
             res.add(s);
+            flag.clearParserRes();
         }
     }
 }

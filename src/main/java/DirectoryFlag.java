@@ -35,4 +35,8 @@ public class DirectoryFlag implements IFlag {
     public String getParserRes() {
         return parserRes;
     }
+
+    public void clearParserRes() {
+        parserRes = "";
+    }
 }

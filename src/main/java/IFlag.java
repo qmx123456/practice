@@ -10,4 +10,6 @@ public interface IFlag {
     int set(String[] split, int index);
 
     String getParserRes();
+
+    void clearParserRes();
 }
