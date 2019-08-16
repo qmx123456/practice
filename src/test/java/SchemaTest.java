@@ -1,6 +1,8 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 public class SchemaTest {
     @Test
     public void should_return_logging_when_get_it(){
@@ -38,50 +40,56 @@ public class SchemaTest {
     @Test
     public void should_return_mes_when_input_spaces(){
         SchemaArg schemaArg = new SchemaArg();
-        Assert.assertEquals(ParserMes.wrong, schemaArg.match(" "));
+        ArrayList<String> match = schemaArg.match(" ");
+        Assert.assertEquals(1, match.size());
+        Assert.assertEquals(ParserMes.wrong, match.get(0));
     }
 
     @Test
     public void should_set_log_when_input_l(){
         SchemaArg schemaArg = new SchemaArg();
-        String match = schemaArg.match("-l");
-        Assert.assertEquals(ParserMes.success, match);
+        ArrayList<String> match = schemaArg.match("-l");
+        Assert.assertEquals(0, match.size());
         Assert.assertEquals(true, schemaArg.getLogFlag().getValue());
     }
 
     @Test
     public void should_return_mes_when_input_l_p(){
         SchemaArg schemaArg = new SchemaArg();
-        String match = schemaArg.match("l p");
-        Assert.assertEquals(ParserMes.wrong, match);
+        ArrayList<String> match = schemaArg.match("l p");
+        Assert.assertEquals(1, match.size());
+        Assert.assertEquals(ParserMes.wrong, match.get(0));
     }
 
     @Test
     public void should_set_prt_when_input_p_80(){
         SchemaArg schemaArg = new SchemaArg();
-        String match = schemaArg.match("-p 80");
-        Assert.assertEquals(ParserMes.success, match);
+        ArrayList<String> match = schemaArg.match("-p 80");
+        Assert.assertEquals(0, match.size());
         Assert.assertEquals(80, schemaArg.getPortArg().getValue());
     }
 
     @Test
     public void should_return_mes_when_input_p(){
         SchemaArg schemaArg = new SchemaArg();
-        String match = schemaArg.match("-p");
-        Assert.assertEquals(ParserMes.needPortNum, match);
+        ArrayList<String> match = schemaArg.match("-p");
+        Assert.assertEquals(1, match.size());
+        Assert.assertEquals(ParserMes.needPortNum, match.get(0));
     }
 
     @Test
     public void should_return_mes_when_input_p_l(){
         SchemaArg schemaArg = new SchemaArg();
-        String match = schemaArg.match("-p l");
-        Assert.assertEquals(ParserMes.needPortNum, match);
+        ArrayList<String> match = schemaArg.match("-p l");
+        Assert.assertEquals(1, match.size());
+        Assert.assertEquals(ParserMes.needPortNum, match.get(0));
     }
 
     @Test
     public void should_return_mes_when_input_d(){
         SchemaArg schemaArg = new SchemaArg();
-        String match = schemaArg.match("-d");
-        Assert.assertEquals(ParserMes.needDirectory, match);
+        ArrayList<String> match = schemaArg.match("-d");
+        Assert.assertEquals(1, match.size());
+        Assert.assertEquals(ParserMes.needDirectory, match.get(0));
     }
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,17 +35,16 @@ public class SchemaArg {
         return directory;
     }
 
-    public String match(String s) {
+    public ArrayList<String> match(String s) {
+        ArrayList<String> res = new ArrayList<String>();
         String[] split = s.split(" ");
         if (split.length == 0) {
-            return ParserMes.wrong;
+            res.add(ParserMes.wrong);
+            return res;
         }
 
-        String res = "";
         boolean contained = false;
-        boolean turn = false;
-        int i = 0;
-        for (; i < split.length; ) {
+        for (int i = 0; i < split.length; ) {
             if (split[i].equals(logFlag.getFlag())) {
                 contained = true;
                 i = logFlag.set(split, i);
@@ -62,11 +62,18 @@ public class SchemaArg {
             i = i + 1;
         }
         if (!contained) {
-            return ParserMes.wrong;
+            res.add(ParserMes.wrong);
         }
-        res += logFlag.getParserRes();
-        res += portFlag.getParserRes();
-        res += directory.getParserRes();
+        addRes(res, logFlag);
+        addRes(res, portFlag);
+        addRes(res, directory);
         return res;
+    }
+
+    private void addRes(ArrayList<String> res, IFlag flag) {
+        String s = flag.getParserRes();
+        if (s != "") {
+            res.add(s);
+        }
     }
 }
