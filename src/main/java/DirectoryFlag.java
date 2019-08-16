@@ -25,6 +25,9 @@ public class DirectoryFlag implements IFlag {
         if (index == split.length - 1){
             parserRes = ParserMes.needDirectory;
             index = index + 1;
+        }else {
+            value = split[index+1];
+            index = index + 2;
         }
         return index;
     }

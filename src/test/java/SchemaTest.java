@@ -92,4 +92,12 @@ public class SchemaTest {
         Assert.assertEquals(1, match.size());
         Assert.assertEquals(ParserMes.needDirectory, match.get(0));
     }
+
+    @Test
+    public void should_return_mes_when_input_d_and_p(){
+        SchemaArg schemaArg = new SchemaArg();
+        ArrayList<String> match = schemaArg.match("-d /p/usr");
+        Assert.assertEquals(0, match.size());
+        Assert.assertEquals("/p/usr", schemaArg.getDirectory().getValue());
+    }
 }
