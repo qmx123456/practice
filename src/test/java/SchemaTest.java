@@ -40,4 +40,12 @@ public class SchemaTest {
         SchemaArg schemaArg = new SchemaArg();
         Assert.assertEquals(ParserMes.wrong, schemaArg.match(" "));
     }
+
+    @Test
+    public void should_set_log_when_input_l(){
+        SchemaArg schemaArg = new SchemaArg();
+        String match = schemaArg.match("-l");
+        Assert.assertEquals(ParserMes.success, match);
+        Assert.assertEquals(true, schemaArg.getLogFlag().getValue());
+    }
 }

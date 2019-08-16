@@ -18,4 +18,8 @@ public class PortFlag implements IFlag {
     public Object getValue() {
         return value;
     }
+
+    public String set(String[] split) {
+        return null;
+    }
 }

@@ -18,4 +18,14 @@ public class LogFlag implements IFlag {
     public Object getValue() {
         return value;
     }
+
+    public String set(String[] split) {
+        for (int i=0;i<split.length;i++){
+            if (split[i].equals(getFlag())){
+                value = true;
+                break;
+            }
+        }
+        return ParserMes.success;
+    }
 }

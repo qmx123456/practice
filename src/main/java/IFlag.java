@@ -6,4 +6,6 @@ public interface IFlag {
     Object getType();
 
     Object getValue();
+
+    String set(String[] split);
 }

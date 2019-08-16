@@ -38,6 +38,8 @@ public class SchemaArg {
         if (split.length == 0){
             return ParserMes.wrong;
         }
-        return null;
+        String res = "";
+        res +=  logFlag.set(split);
+        return res;
     }
 }
