@@ -23,8 +23,10 @@ public class PortFlag implements IFlag {
         int i=0;
         for (;i<split.length;i++){
             if (split[i].equals(getFlag())){
-                value = Integer.parseInt(split[i+1]);
-                break;
+                if (i!=split.length-1) {
+                    value = Integer.parseInt(split[i + 1]);
+                    break;
+                }
             }
         }
         if (i == split.length){

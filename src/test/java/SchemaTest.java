@@ -63,4 +63,11 @@ public class SchemaTest {
         Assert.assertEquals(ParserMes.success, match);
         Assert.assertEquals(80, schemaArg.getPortArg().getValue());
     }
+
+    @Test
+    public void should_return_mes_when_input_p(){
+        SchemaArg schemaArg = new SchemaArg();
+        String match = schemaArg.match("-p");
+        Assert.assertEquals(ParserMes.wrong, match);
+    }
 }
