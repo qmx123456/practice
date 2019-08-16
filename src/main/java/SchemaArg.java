@@ -4,17 +4,17 @@ import java.util.Map;
 public class SchemaArg {
 
     private final LogFlag logFlag;
-    private final PortFlag arg;
+    private final PortFlag portFlag;
     private Map<String, IFlag> flag;
     private IFlag directory;
 
     public SchemaArg(){
         flag=new HashMap<String, IFlag>();
         logFlag = new LogFlag();
-        arg = new PortFlag();
+        portFlag = new PortFlag();
         directory=new DirectoryFlag();
         flag.put(logFlag.getFlag(), logFlag);
-        flag.put(arg.getFlag(), arg);
+        flag.put(portFlag.getFlag(), portFlag);
         flag.put(directory.getFlag(), directory);
     }
     public IFlag getLogFlag() {
@@ -22,7 +22,7 @@ public class SchemaArg {
     }
 
     public IFlag getPortArg() {
-        return arg;
+        return portFlag;
     }
 
     public int getFlagCount() {
@@ -31,5 +31,13 @@ public class SchemaArg {
 
     public IFlag getDirectory() {
         return directory;
+    }
+
+    public String match(String s) {
+        String[] split = s.split(" ");
+        if (split.length == 0){
+            return ParserMes.wrong;
+        }
+        return null;
     }
 }

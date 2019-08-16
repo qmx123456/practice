@@ -34,4 +34,10 @@ public class SchemaTest {
         SchemaArg schemaArg = new SchemaArg();
         Assert.assertEquals(3, schemaArg.getFlagCount());
     }
+
+    @Test
+    public void should_return_mes_when_input_spaces(){
+        SchemaArg schemaArg = new SchemaArg();
+        Assert.assertEquals(ParserMes.wrong, schemaArg.match(" "));
+    }
 }
