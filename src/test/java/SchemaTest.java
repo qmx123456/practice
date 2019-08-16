@@ -100,4 +100,13 @@ public class SchemaTest {
         Assert.assertEquals(0, match.size());
         Assert.assertEquals("/p/usr", schemaArg.getDirectory().getValue());
     }
+
+    @Test
+    public void should_return_mes_when_input_d_and_path_and_p(){
+        SchemaArg schemaArg = new SchemaArg();
+        ArrayList<String> match = schemaArg.match("-d /p/usr -p 80");
+        Assert.assertEquals(0, match.size());
+        Assert.assertEquals("/p/usr", schemaArg.getDirectory().getValue());
+        Assert.assertEquals(80, schemaArg.getPortArg().getValue());
+    }
 }

@@ -58,6 +58,7 @@ public class SchemaArg {
             if (split[i].equals(directory.getFlag())) {
                 contained = true;
                 i = directory.set(split, i);
+                continue;
             }
             i = i + 1;
         }
