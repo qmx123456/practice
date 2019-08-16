@@ -1,8 +1,9 @@
 public class DirectoryFlag implements IFlag {
     String value;
-
+    String parserRes;
     public DirectoryFlag(){
         value=(String) getDefaultValue();
+        parserRes = "";
     }
     public String getFlag() {
         return "-d";
@@ -21,6 +22,14 @@ public class DirectoryFlag implements IFlag {
     }
 
     public int set(String[] split, int index) {
-        return 0;
+        if (index == split.length - 1){
+            parserRes = ParserMes.needDirectory;
+            index = index + 1;
+        }
+        return index;
+    }
+
+    public String getParserRes() {
+        return parserRes;
     }
 }

@@ -8,4 +8,6 @@ public interface IFlag {
     Object getValue();
 
     int set(String[] split, int index);
+
+    String getParserRes();
 }

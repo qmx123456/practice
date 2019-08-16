@@ -47,25 +47,26 @@ public class SchemaArg {
         for (; i < split.length; ) {
             if (split[i].equals(logFlag.getFlag())) {
                 contained = true;
-                turn = true;
                 i = logFlag.set(split, i);
                 continue;
             }
             if (split[i].equals(portFlag.getFlag())) {
                 contained = true;
-                turn = true;
                 i = portFlag.set(split, i);
+                continue;
             }
-            if (!turn) {
-                i = i + 1;
+            if (split[i].equals(directory.getFlag())) {
+                contained = true;
+                i = directory.set(split, i);
             }
-            turn = false;
+            i = i + 1;
         }
         if (!contained) {
             return ParserMes.wrong;
         }
         res += logFlag.getParserRes();
         res += portFlag.getParserRes();
+        res += directory.getParserRes();
         return res;
     }
 }
