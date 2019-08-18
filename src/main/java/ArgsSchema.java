@@ -10,7 +10,7 @@ public class ArgsSchema {
     public ArgsSchema(String schemaText) {
         this.schemaText = schemaText;
         String[] split = schemaText.split(" ");
-        argSpecs = Arrays.asList(split).stream().map(ArgSpec::new).collect(Collectors.toList());
+        argSpecs = Arrays.asList(split).stream().map(ArgSpec::build).filter(arg-> arg != null).collect(Collectors.toList());
     }
 
     public int count() {

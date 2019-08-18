@@ -27,4 +27,11 @@ public class ArgsSchemaTest {
         Assert.assertEquals(null, argsSchema.get("w"));
     }
 
+    @Test
+    public void should_get_right_count_when_schema_text_with_wrong_format(){
+        String schemaText = "wp";
+        ArgsSchema argsSchema = new ArgsSchema(schemaText);
+        Assert.assertEquals(0, argsSchema.count());
+    }
+
 }
