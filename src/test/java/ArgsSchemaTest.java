@@ -18,8 +18,8 @@ public class ArgsSchemaTest {
     }
 
     @Test
-    public void should_get_type_label_from_text(){
-        Assert.assertEquals(new ArgSpec("l:boolean:true"), argsSchema.get("l"));
+    public void should_get_argSpec_from_argText(){
+        Assert.assertEquals(ArgSpec.build("l:boolean:true"), argsSchema.get("l"));
     }
 
     @Test

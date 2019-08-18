@@ -10,13 +10,6 @@ public class ArgSpec {
     private static final String stringType = "string";
     public Object value;
 
-    public ArgSpec(String argText) {
-        String[] split = argText.split(":");
-        label = split[0];
-        type = split[1];
-        value = getValue(Arrays.asList(split));
-    }
-
     public ArgSpec(String label, String type, Object value) {
         this.label = label;
         this.type = type;
@@ -24,18 +17,19 @@ public class ArgSpec {
     }
 
     private static Object getValue(List<String> argSpecFlagTexts) {
-        return argSpecFlagTexts.size() == 2 ? valueIfNotInput(argSpecFlagTexts) : valueIfInputValue(argSpecFlagTexts);
+        String typeText = argSpecFlagTexts.get(1);
+        return argSpecFlagTexts.size() == 2 ? valueIfNotInput(typeText) : valueIfInputValue(typeText, argSpecFlagTexts.get(2));
     }
 
-    private static Object valueIfInputValue(List<String> argSpecFlagTexts) {
-        switch (argSpecFlagTexts.get(1)) {
+    private static Object valueIfInputValue(String type, String val) {
+        switch (type) {
             case stringType:
-                return String.valueOf(argSpecFlagTexts.get(2));
+                return String.valueOf(val);
             case boolType:
-                return Boolean.valueOf(argSpecFlagTexts.get(2));
+                return Boolean.valueOf(val);
             case integerType: {
                 try {
-                    return Integer.valueOf(argSpecFlagTexts.get(2));
+                    return Integer.valueOf(val);
                 } catch (Exception e) {
                     return 0;
                 }
@@ -45,8 +39,8 @@ public class ArgSpec {
         }
     }
 
-    private static Object valueIfNotInput(List<String> argSpecFlagTexts) {
-        switch (argSpecFlagTexts.get(1)) {
+    private static Object valueIfNotInput(String type) {
+        switch (type) {
             case stringType:
                 return "";
             case boolType:
@@ -73,12 +67,18 @@ public class ArgSpec {
         char flagChar = labelText.charAt(0);
         boolean flagFormat = (flagChar >= 'a' && flagChar <= 'z') || (flagChar >= 'A' && flagChar <= 'Z');
 
-        String cType = splits.get(1);
-        boolean typeFormat = cType.equals(boolType) || cType.equals(integerType) || cType.equals(stringType);
+        String typeText = splits.get(1);
+        boolean typeFormat = typeText.equals(boolType) || typeText.equals(integerType) || typeText.equals(stringType);
 
         if (flagFormat && typeFormat) {
-            return new ArgSpec(labelText, cType, getValue(splits));
+            return new ArgSpec(labelText, typeText, getValue(splits));
         }
         return null;
+    }
+
+    public int set(String[] commandTexts, int index) {
+        value = valueIfInputValue(type, commandTexts[index+1]);
+        index = index + 2;
+        return index;
     }
 }

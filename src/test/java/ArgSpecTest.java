@@ -20,12 +20,15 @@ public class ArgSpecTest {
     }
 
     @Test
-    public void should_get_value_format(){
+    public void should_get_default_value(){
         ArgSpec argSpec = ArgSpec.build("l:integer:0");
         Assert.assertEquals(0, argSpec.value);
 
         argSpec = ArgSpec.build("l:boolean:false");
         Assert.assertEquals(false, argSpec.value);
+
+        argSpec = ArgSpec.build("l:string:wp");
+        Assert.assertEquals("wp", argSpec.value);
 
         argSpec = ArgSpec.build("l:string:");
         Assert.assertEquals("", argSpec.value);
@@ -47,30 +50,36 @@ public class ArgSpecTest {
     public void should_override_equals(){
         ArgSpec argSpec = ArgSpec.build(argText);
 
-        Assert.assertEquals(new ArgSpec(argText), argSpec);
+        Assert.assertEquals(ArgSpec.build(argText), argSpec);
     }
 
     @Test
-    public void should_be_null_when_arg_text_is_not_format(){
+    public void should_argSpec_be_null_when_arg_text_is_not_right(){
         ArgSpec argSpec = ArgSpec.build("wp");
         Assert.assertEquals(null, argSpec);
 
         argSpec = ArgSpec.build("-");
         Assert.assertEquals(null, argSpec);
 
-        argSpec = ArgSpec.build("p:bb:");
+        argSpec = ArgSpec.build("p:bb");
         Assert.assertEquals(null, argSpec);
     }
 
     @Test
-    public void should_be_fomat_when_arg_text_contain_space_before_or_after(){
-        ArgSpec argSpec = ArgSpec.build("w :boolean");
-        Assert.assertEquals("w", argSpec.label);
+    public void should_be_trimed_when_arg_text_contain_spaces_before_or_after(){
+        ArgSpec argSpec = ArgSpec.build(" l : boolean : false ");
+        Assert.assertEquals("l", argSpec.label);
+    }
 
-        argSpec = ArgSpec.build("w: boolean ");
-        Assert.assertEquals("boolean", argSpec.type);
+    @Test
+    public void should_set_current_value_from_command_text(){
+        ArgSpec argSpec = ArgSpec.build("l:boolean:false");
 
-        argSpec = ArgSpec.build("w: boolean: false ");
-        Assert.assertEquals(false, argSpec.value);
+        String commandsText = "-l true -p 8080 -d /usr/logs";
+        String[] commandTexts = commandsText.split(" ");
+        int index = argSpec.set(commandTexts, 0);
+
+        Assert.assertEquals(2, index);
+        Assert.assertEquals(true, argSpec.value);
     }
 }
