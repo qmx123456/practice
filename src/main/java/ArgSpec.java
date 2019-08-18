@@ -1,8 +1,11 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArgSpec {
+    private static final String listStringType = "list<string>";
+    private static final String listIntegerType = "list<integer>";
     public String label;
     public String type;
     private static final String boolType = "boolean";
@@ -47,6 +50,10 @@ public class ArgSpec {
                 return false;
             case integerType:
                 return 0;
+            case listStringType:
+                return new ArrayList<String>();
+            case listIntegerType:
+                return new ArrayList<Integer>();
             default:
                 return null;
         }
@@ -68,7 +75,8 @@ public class ArgSpec {
         boolean flagFormat = (flagChar >= 'a' && flagChar <= 'z') || (flagChar >= 'A' && flagChar <= 'Z');
 
         String typeText = splits.get(1);
-        boolean typeFormat = typeText.equals(boolType) || typeText.equals(integerType) || typeText.equals(stringType);
+        boolean typeFormat = typeText.equals(boolType) || typeText.equals(integerType)
+                || typeText.equals(stringType)|| typeText.equals(listStringType)|| typeText.equals(listIntegerType);
 
         if (flagFormat && typeFormat) {
             return new ArgSpec(labelText, typeText, getValue(splits));

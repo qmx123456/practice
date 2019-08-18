@@ -2,6 +2,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 public class ArgSpecTest {
 
     private String argText;
@@ -13,10 +15,18 @@ public class ArgSpecTest {
 
     @Test
     public void should_get_label_type_from_arg_text(){
-        ArgSpec argSpec = ArgSpec.build(argText);
+        ArgSpec argSpec = ArgSpec.build("l:boolean:true");
 
         Assert.assertEquals("boolean", argSpec.type);
         Assert.assertEquals("l", argSpec.label);
+
+        argText = "g:list<string>";
+        argSpec = ArgSpec.build(argText);
+        Assert.assertEquals("list<string>", argSpec.type);
+
+        argText = "g:list<integer>";
+        argSpec = ArgSpec.build(argText);
+        Assert.assertEquals("list<integer>", argSpec.type);
     }
 
     @Test
@@ -32,6 +42,12 @@ public class ArgSpecTest {
 
         argSpec = ArgSpec.build("l:string:");
         Assert.assertEquals("", argSpec.value);
+
+        argSpec = ArgSpec.build("g:list<string>:");
+        Assert.assertEquals(0, ((List<?>)argSpec.value).size());
+
+        argSpec = ArgSpec.build("g:list<integer>:");
+        Assert.assertEquals(0, ((List<?>)argSpec.value).size());
 
         argSpec = ArgSpec.build("l:integer");
         Assert.assertEquals(0, argSpec.value);
