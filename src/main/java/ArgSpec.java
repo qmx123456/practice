@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,7 @@ public class ArgSpec {
     public ArgSpec(String label, String type, Object value) {
         this.label = label;
         this.type = type;
-        this.value=value;
+        this.value = value;
     }
 
     private static Object getValue(List<String> argSpecFlagTexts) {
@@ -37,6 +38,8 @@ public class ArgSpec {
                     return 0;
                 }
             }
+            case listStringType:
+
             default:
                 return null;
         }
@@ -66,7 +69,7 @@ public class ArgSpec {
     }
 
     public static ArgSpec build(String argText) {
-        List<String> splits = Arrays.asList(argText.split(":")).stream().map(t->t.trim()).collect(Collectors.toList());
+        List<String> splits = Arrays.asList(argText.split(":")).stream().map(t -> t.trim()).collect(Collectors.toList());
         String labelText = splits.get(0);
         if (labelText.length() != 1 || splits.size() < 2) {
             return null;
@@ -76,7 +79,7 @@ public class ArgSpec {
 
         String typeText = splits.get(1);
         boolean typeFormat = typeText.equals(boolType) || typeText.equals(integerType)
-                || typeText.equals(stringType)|| typeText.equals(listStringType)|| typeText.equals(listIntegerType);
+                || typeText.equals(stringType) || typeText.equals(listStringType) || typeText.equals(listIntegerType);
 
         if (flagFormat && typeFormat) {
             return new ArgSpec(labelText, typeText, getValue(splits));
@@ -85,8 +88,87 @@ public class ArgSpec {
     }
 
     public int set(String[] commandTexts, int index) {
-        value = valueIfInputValue(type, commandTexts[index+1]);
+        value = valueIfInputValue(type, commandTexts[index + 1]);
         index = index + 2;
         return index;
+    }
+
+    //输入的index是确定的指令的开始位置
+    //返回的index是确定的下一个指令的开始位置
+    public int set(String commandTexts, int index) {
+        switch (type) {
+            case integerType:
+                return tryExtractIntegerValue(commandTexts, index);
+            case boolType:
+                return tryExtractBooleanValue(commandTexts, index);
+            case stringType:
+                return tryExtractDirectorValue(commandTexts, index);
+        }
+        return index;
+    }
+
+    private int tryExtractDirectorValue(String commandTexts, int index) {
+        int indexForValueStart = calIndexForValueStart(commandTexts, index);
+        String valueText = commandTexts.substring(indexForValueStart).split(" ")[0];
+        File file = new File(valueText);
+        if (file.isDirectory()) {
+            value = valueText;
+            int valueEndIndex = indexForValueStart + valueText.length();
+            index = calIndexForNextLabelStart(commandTexts, valueEndIndex);
+        } else {
+            index = indexForValueStart;
+        }
+        return index;
+    }
+
+    private int tryExtractBooleanValue(String commandTexts, int index) {
+        int indexForValueStart = calIndexForValueStart(commandTexts, index);
+        String valueText = commandTexts.substring(indexForValueStart).split(" ")[0];
+
+        if (valueText.equals("false") || valueText.equals("true")) {
+            value = Boolean.valueOf(valueText);
+            int valueEndIndex = indexForValueStart + valueText.length();
+            index = calIndexForNextLabelStart(commandTexts, valueEndIndex);
+        } else {
+            index = indexForValueStart;
+        }
+        return index;
+    }
+
+    private int tryExtractIntegerValue(String commandTexts, int index) {
+        int indexForValueStart = calIndexForValueStart(commandTexts, index);
+        String valueText = commandTexts.substring(indexForValueStart).split(" ")[0];
+        if (valueText.matches("[0-9]+")) {
+            value = Integer.parseInt(valueText);
+            int valueEndIndex = indexForValueStart + valueText.length();
+            index = calIndexForNextLabelStart(commandTexts, valueEndIndex);
+        } else {
+            index = indexForValueStart;
+        }
+        return index;
+    }
+
+    private int calIndexForNextLabelStart(String commandTexts, int index) {
+        return index + spacesCountStartWith(commandTexts.substring(index));
+    }
+
+    private int calIndexForValueStart(String commandTexts, int index) {
+        int slashLength = 1;
+        int labelLength = 1;
+        int indexAfterLabel = index + slashLength + labelLength;
+        String textContainValue = commandTexts.substring(indexAfterLabel);
+        index = indexAfterLabel + spacesCountStartWith(textContainValue);
+        return index;
+    }
+
+    private int spacesCountStartWith(String str) {
+        int a = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) != ' ') {
+                break;
+            }
+            a++;
+        }
+        return a;
     }
 }

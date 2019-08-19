@@ -23,7 +23,7 @@ public class ArgsSchemaTest {
     }
 
     @Test
-    public void should_return_null_when_label_not_exst(){
+    public void should_return_null_when_label_not_exist(){
         Assert.assertEquals(null, argsSchema.get("w"));
     }
 
