@@ -8,32 +8,40 @@ public class ArgsParserTest {
     @Test
     public void should_parse_all_arg_value_with_schema_and_command(){
 
-        String commandText = "-l true -p 8080 -d /usr/logs";
+        String commandText = "-l true -p 8080 -d d:/";
         argsParser.parse(commandText);
 
         Assert.assertEquals(true, argsParser.get("l"));
         Assert.assertEquals(8080, argsParser.get("p"));
-        Assert.assertEquals("/usr/logs", argsParser.get("d"));
+        Assert.assertEquals("d:/", argsParser.get("d"));
     }
 
     @Test
-    public void should_parse_arg_value_at_best_with_not_format_command(){
-        String commandText = "-w true -p 8080 -d /usr/logs";
-        argsParser.parse(commandText);
+    public void should_escape_command_with_label_is_not_right(){
+        String ctWithLabelNotRight = "-lp false -p 8080 -d d:/";
+        argsParser.parse(ctWithLabelNotRight);
+        Assert.assertEquals(null, argsParser.get("lp"));
+        Assert.assertEquals(true, argsParser.get("l"));
 
+
+        ctWithLabelNotRight = "-w true -p 8080 -d d:/";
+        argsParser.parse(ctWithLabelNotRight);
         Assert.assertEquals(null, argsParser.get("w"));
+
+        ctWithLabelNotRight = "p-l false -p 8080 -d d:/";
+        argsParser.parse(ctWithLabelNotRight);
+        Assert.assertEquals(true, argsParser.get("l"));
+
+        ctWithLabelNotRight = "-w-l false -p 8080 -d d:/";
+        argsParser.parse(ctWithLabelNotRight);
+        Assert.assertEquals(true, argsParser.get("l"));
+
+        ctWithLabelNotRight = "-";
+        argsParser.parse(ctWithLabelNotRight);
+        Assert.assertEquals(true, argsParser.get("l"));
     }
 
-    //todo
-    @Test
-    public void should_not_set_value_at_best_with_not_format_command(){
-        String commandText = "-lp true -p 8080 -d /usr/logs";
-        argsParser.parse1(commandText);
-
-        Assert.assertEquals(null, argsParser.get("w"));
-    }
-
-    @Test
+//    @Test
     public void should_parse_list_value_with_command(){
         String commandText = "-g [this,is,a,list] -d [1,2,-3,5]";
         argsParser.parse(commandText);

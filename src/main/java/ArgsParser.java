@@ -10,39 +10,31 @@ public class ArgsParser {
         ArgSpec argSpec = argsSchema.get(label);
         if (argSpec != null) {
             return argSpec.value;
-        }else {
+        } else {
             return null;
         }
     }
 
-    public void parse1(String commandText) {
-        for (int i = 0; i < commandText.length(); ) {
-            int slashIndex = i;
-            int labelIndex = i + 1;
-            int spaceIndex = i+2;
-            String slash = commandText.substring(slashIndex, labelIndex);
-            if (slash.equals("-")) {
-                String labelText = commandText.substring(labelIndex, labelIndex+1);
-                //todo 确定label后面有space分割 并增加测试
-                ArgSpec argSpec = argsSchema.get(labelText);
-                if (argSpec != null) {
-                    i = argSpec.set(commandText, labelIndex);
-                } else {
-                    i = labelIndex;
-                }
+    public void parse(String commandText) {
+        int length = commandText.length();
+        for (int i = 0; i < length; ) {
+            int labelEndIndex = i + 2;
+            int labelStartIndex = i + 1;
+            boolean isLabelFormat = commandText.charAt(i) == '-' && labelEndIndex <= length - 1 && commandText.charAt(labelEndIndex) == ' ';
+            if (isLabelFormat && argsSchema.get(commandText.substring(labelStartIndex, labelEndIndex)) != null) {
+                i = argsSchema.get(commandText.substring(labelStartIndex, labelEndIndex)).set(commandText, i);
+            } else {
+                i = calIndex(commandText, i);
             }
         }
     }
 
-    public void parse(String commandText) {
-        String[] split = commandText.split(" ");
-        for (int i=0; i<split.length;){
-            ArgSpec argSpec = argsSchema.get(split[i].replace("-", ""));
-            if (argSpec != null) {
-                i = argSpec.set(split, i);
-            } else {
-                i = i + 1;
+    private int calIndex(String commandText, int index) {
+        for (int j = index; j < commandText.length(); j++) {
+            if (commandText.charAt(j) == ' ') {
+                return j+1;
             }
         }
+        return index+1;
     }
 }
