@@ -88,18 +88,6 @@ public class ArgSpecTest {
     }
 
     @Test
-    public void should_set_current_value_from_command_texts(){
-        ArgSpec argSpec = ArgSpec.build("l:boolean:false");
-
-        String commandsText = "-l true -p 8080 -d /usr/logs";
-        String[] commandTexts = commandsText.split(" ");
-        int index = argSpec.set(commandTexts, 0);
-
-        Assert.assertEquals(2, index);
-        Assert.assertEquals(true, argSpec.value);
-    }
-
-    @Test
     public void should_extract_integer_value(){
         ArgSpec argSpec = ArgSpec.build("d:integer:0");
 
@@ -144,7 +132,6 @@ public class ArgSpecTest {
         index = argSpec.set(ctWithValueNotRight, 0);
         Assert.assertEquals(3, index);
         Assert.assertEquals(false, argSpec.value);
-
     }
 
     @Test
@@ -161,6 +148,67 @@ public class ArgSpecTest {
         index = argSpec.set(ctWithValueNotRight, 0);
         Assert.assertEquals(3, index);
         Assert.assertEquals("", argSpec.value);
+    }
+    
+    @Test
+    public void should_extract_integer_value1(){
+        ArgSpec argSpec = ArgSpec.build("d:integer:0");
 
+        String commandsTextNormal = "-d 1 -l true";
+        String nextCommand = argSpec.set(commandsTextNormal);
+        Assert.assertEquals("-l true", nextCommand);
+        Assert.assertEquals(1, argSpec.value);
+
+        String cWithMultiSpaceBetweenLabelAndValue = "-d  1 -l true";
+        nextCommand = argSpec.set(cWithMultiSpaceBetweenLabelAndValue);
+        Assert.assertEquals("-l true", nextCommand);
+        Assert.assertEquals(1, argSpec.value);
+
+        String cWithMultiSpaceBeforeNextLabel = "-d 1  -l true";
+        nextCommand = argSpec.set(cWithMultiSpaceBeforeNextLabel);
+        Assert.assertEquals("-l true", nextCommand);
+        Assert.assertEquals(1, argSpec.value);
+
+        String cWithoutValue = "-d ";
+        nextCommand = argSpec.set(cWithoutValue);
+        Assert.assertEquals("", nextCommand);
+        Assert.assertEquals(1, argSpec.value);
+
+        String cWithValueIsNotRight = "-d ll";
+        nextCommand = argSpec.set(cWithValueIsNotRight);
+        Assert.assertEquals("ll", nextCommand);
+        Assert.assertEquals(1, argSpec.value);
+    }
+
+    @Test
+    public void should_extract_boolean_value1() {
+        ArgSpec argSpec = ArgSpec.build("l:boolean:false");
+
+        String commandsTextNormal = "-l true -p 80";
+        String nextCommand = argSpec.set(commandsTextNormal);
+        Assert.assertEquals("-p 80", nextCommand);
+        Assert.assertEquals(true, argSpec.value);
+
+        argSpec = ArgSpec.build("l:boolean:false");
+        String ctWithValueNotRight = "-l tt -p 80";
+        nextCommand = argSpec.set(ctWithValueNotRight);
+        Assert.assertEquals("tt -p 80", nextCommand);
+        Assert.assertEquals(false, argSpec.value);
+    }
+
+    @Test
+    public void should_extract_string_value1() {
+        ArgSpec argSpec = ArgSpec.build("l:string:");
+
+        String commandsTextNormal = "-l d:/ -p 80";
+        String index = argSpec.set(commandsTextNormal);
+        Assert.assertEquals("-p 80", index);
+        Assert.assertEquals("d:/", argSpec.value);
+
+        argSpec = ArgSpec.build("l:string:");
+        String ctWithValueNotRight = "-l tt -p 80";
+        index = argSpec.set(ctWithValueNotRight);
+        Assert.assertEquals("tt -p 80", index);
+        Assert.assertEquals("", argSpec.value);
     }
 }

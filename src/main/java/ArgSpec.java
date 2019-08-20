@@ -171,4 +171,59 @@ public class ArgSpec {
         }
         return a;
     }
+
+    public String set(String commandTexts) {
+        switch (type) {
+            case integerType:return tryExtractIntegerValue(commandTexts);
+            case boolType:
+                return  tryExtractBooleanValue(commandTexts);
+            case stringType:
+                return tryExtractDirectorValue(commandTexts);
+        }
+        return null;
+    }
+
+    private String tryExtractDirectorValue(String commandTexts) {
+        int index;
+        int indexForValueStart = calIndexForValueStart(commandTexts, 0);
+        String valueText = commandTexts.substring(indexForValueStart).split(" ")[0];
+        File file = new File(valueText);
+        if (file.isDirectory()) {
+            value = valueText;
+            int valueEndIndex = indexForValueStart + valueText.length();
+            index = calIndexForNextLabelStart(commandTexts, valueEndIndex);
+        } else {
+            index = indexForValueStart;
+        }
+        return commandTexts.substring(index);
+    }
+
+    private String tryExtractBooleanValue(String commandTexts) {
+        int index;
+        int indexForValueStart = calIndexForValueStart(commandTexts, 0);
+        String valueText = commandTexts.substring(indexForValueStart).split(" ")[0];
+
+        if (valueText.equals("false") || valueText.equals("true")) {
+            value = Boolean.valueOf(valueText);
+            int valueEndIndex = indexForValueStart + valueText.length();
+            index = calIndexForNextLabelStart(commandTexts, valueEndIndex);
+        } else {
+            index = indexForValueStart;
+        }
+        return commandTexts.substring(index);
+    }
+
+    private String tryExtractIntegerValue(String commandTexts) {
+        int index;
+        int indexForValueStart = calIndexForValueStart(commandTexts, 0);
+        String valueText = commandTexts.substring(indexForValueStart).split(" ")[0];
+        if (valueText.matches("[0-9]+")) {
+            value = Integer.parseInt(valueText);
+            int valueEndIndex = indexForValueStart + valueText.length();
+            index = calIndexForNextLabelStart(commandTexts, valueEndIndex);
+        } else {
+            index = indexForValueStart;
+        }
+        return commandTexts.substring(index);
+    }
 }

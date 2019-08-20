@@ -1,28 +1,35 @@
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ArgsSchema {
-    private final List<ArgSpec> argSpecs;
-    private String schemaText;
+    private final Map<String, ArgSpec> argSpecDict;
 
     public ArgsSchema(String schemaText) {
-        this.schemaText = schemaText;
         String[] split = schemaText.split(" ");
-        argSpecs = Arrays.asList(split).stream().map(ArgSpec::build).filter(arg-> arg != null).collect(Collectors.toList());
+        argSpecDict = new HashMap<>();
+        Arrays.asList(split).stream().map(ArgSpec::build).filter(arg -> arg != null).forEach(a -> argSpecDict.put(a.label, a));
     }
 
     public int count() {
-        return argSpecs.size();
+        return argSpecDict.size();
     }
 
     public ArgSpec get(String label) {
-        Optional<ArgSpec> candidate = argSpecs.stream().filter(arg -> arg.label.equals(label)).findFirst();
-        if (candidate.isPresent()) {
-            return candidate.get();
-        }else {
-            return null;
+        return argSpecDict.get(label);
+    }
+
+    public void parse(String commandText) {
+        String ct = commandText.trim();
+        String[] split;
+        while (ct.length() > 0) {
+            split = ct.split(" ");
+            boolean b = split[0].length() == 2 && split[0].charAt(0) == '-';
+            if (b && argSpecDict.get(split[0].substring(1))!=null) {
+                ct = argSpecDict.get(split[0].substring(1)).set(ct);
+            }else {
+                ct = ct.substring(split[0].length()).trim();
+            }
         }
     }
 }

@@ -29,9 +29,33 @@ public class ArgsSchemaTest {
 
     @Test
     public void should_get_right_count_when_schema_text_with_wrong_format(){
-        String schemaText = "wp";
-        ArgsSchema argsSchema = new ArgsSchema(schemaText);
+        ArgsSchema argsSchema = new ArgsSchema("wp");
         Assert.assertEquals(0, argsSchema.count());
     }
+
+
+    @Test
+    public void should_match_command_with_label(){
+        String ctWithLabelNotRight = "-lp false -p 8080 -d d:/";
+
+        argsSchema.parse(ctWithLabelNotRight);
+        Assert.assertEquals(null, argsSchema.get("lp"));
+        Assert.assertEquals(true, argsSchema.get("l").value);
+
+        ctWithLabelNotRight = "  -l false   -p 8080 -d d:/";
+        argsSchema.parse(ctWithLabelNotRight);
+        Assert.assertEquals(false, argsSchema.get("l").value);
+        Assert.assertEquals(8080, argsSchema.get("p").value);
+
+        ctWithLabelNotRight = "-w-l   false -p 8080 -d d:/";
+        argsSchema.parse(ctWithLabelNotRight);
+        Assert.assertEquals(false, argsSchema.get("l").value);
+        Assert.assertEquals(8080, argsSchema.get("p").value);
+
+        ctWithLabelNotRight = "-";
+        argsSchema.parse(ctWithLabelNotRight);
+        Assert.assertEquals(false, argsSchema.get("l").value);
+    }
+
 
 }
