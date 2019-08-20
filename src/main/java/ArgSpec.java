@@ -87,67 +87,6 @@ public class ArgSpec {
         return null;
     }
 
-    public int set(String[] commandTexts, int index) {
-        value = valueIfInputValue(type, commandTexts[index + 1]);
-        index = index + 2;
-        return index;
-    }
-
-    //输入的index是确定的指令的开始位置
-    //返回的index是确定的下一个指令的开始位置
-    public int set(String commandTexts, int index) {
-        switch (type) {
-            case integerType:
-                return tryExtractIntegerValue(commandTexts, index);
-            case boolType:
-                return tryExtractBooleanValue(commandTexts, index);
-            case stringType:
-                return tryExtractDirectorValue(commandTexts, index);
-        }
-        return index;
-    }
-
-    private int tryExtractDirectorValue(String commandTexts, int index) {
-        int indexForValueStart = calIndexForValueStart(commandTexts, index);
-        String valueText = commandTexts.substring(indexForValueStart).split(" ")[0];
-        File file = new File(valueText);
-        if (file.isDirectory()) {
-            value = valueText;
-            int valueEndIndex = indexForValueStart + valueText.length();
-            index = calIndexForNextLabelStart(commandTexts, valueEndIndex);
-        } else {
-            index = indexForValueStart;
-        }
-        return index;
-    }
-
-    private int tryExtractBooleanValue(String commandTexts, int index) {
-        int indexForValueStart = calIndexForValueStart(commandTexts, index);
-        String valueText = commandTexts.substring(indexForValueStart).split(" ")[0];
-
-        if (valueText.equals("false") || valueText.equals("true")) {
-            value = Boolean.valueOf(valueText);
-            int valueEndIndex = indexForValueStart + valueText.length();
-            index = calIndexForNextLabelStart(commandTexts, valueEndIndex);
-        } else {
-            index = indexForValueStart;
-        }
-        return index;
-    }
-
-    private int tryExtractIntegerValue(String commandTexts, int index) {
-        int indexForValueStart = calIndexForValueStart(commandTexts, index);
-        String valueText = commandTexts.substring(indexForValueStart).split(" ")[0];
-        if (valueText.matches("[0-9]+")) {
-            value = Integer.parseInt(valueText);
-            int valueEndIndex = indexForValueStart + valueText.length();
-            index = calIndexForNextLabelStart(commandTexts, valueEndIndex);
-        } else {
-            index = indexForValueStart;
-        }
-        return index;
-    }
-
     private int calIndexForNextLabelStart(String commandTexts, int index) {
         return index + spacesCountStartWith(commandTexts.substring(index));
     }
