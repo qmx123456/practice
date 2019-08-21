@@ -1,3 +1,4 @@
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -112,57 +113,75 @@ public class ArgSpec {
     }
 
     public String set(String commandTexts) {
+        int index=0;
+        int indexForValueStart = calIndexForValueStart(commandTexts, 0);
+
         switch (type) {
-            case integerType:return tryExtractIntegerValue(commandTexts);
+            case integerType:
+                index = tryExtractInteger(commandTexts, indexForValueStart);break;
             case boolType:
-                return  tryExtractBooleanValue(commandTexts);
+                index = tryExtractBoolean(commandTexts, indexForValueStart);break;
             case stringType:
-                return tryExtractDirectorValue(commandTexts);
+                index = tryExtractDirectory(commandTexts, indexForValueStart);break;
+            case listStringType:
+                index = tryExtractListStringValue(commandTexts,indexForValueStart);break;
         }
-        return null;
+        return commandTexts.substring(index);
     }
 
-    private String tryExtractDirectorValue(String commandTexts) {
-        int index;
-        int indexForValueStart = calIndexForValueStart(commandTexts, 0);
+    private int tryExtractInteger(String commandTexts, int indexForValueStart) {
         String valueText = commandTexts.substring(indexForValueStart).split(" ")[0];
+        int index = indexForValueStart;
+        if (valueText.matches("[0-9]+")) {
+            value = Integer.parseInt(valueText);
+            int valueEndIndex2 = indexForValueStart + valueText.length();
+            index = calIndexForNextLabelStart(commandTexts, valueEndIndex2);
+        }
+        return index;
+    }
+
+    private int tryExtractBoolean(String commandTexts, int indexForValueStart) {
+        String valueText = commandTexts.substring(indexForValueStart).split(" ")[0];
+
+        int index = indexForValueStart;
+        if (valueText.equals("false") || valueText.equals("true")) {
+            value = Boolean.valueOf(valueText);
+            int valueEndIndex1 = indexForValueStart + valueText.length();
+            index = calIndexForNextLabelStart(commandTexts, valueEndIndex1);
+        }
+        return index;
+    }
+
+    private int tryExtractDirectory(String commandTexts, int indexForValueStart) {
+        String valueText = commandTexts.substring(indexForValueStart).split(" ")[0];
+
+        int res = indexForValueStart;
         File file = new File(valueText);
         if (file.isDirectory()) {
             value = valueText;
             int valueEndIndex = indexForValueStart + valueText.length();
-            index = calIndexForNextLabelStart(commandTexts, valueEndIndex);
-        } else {
-            index = indexForValueStart;
+            res = calIndexForNextLabelStart(commandTexts, valueEndIndex);
         }
-        return commandTexts.substring(index);
+        return res;
     }
 
-    private String tryExtractBooleanValue(String commandTexts) {
-        int index;
-        int indexForValueStart = calIndexForValueStart(commandTexts, 0);
-        String valueText = commandTexts.substring(indexForValueStart).split(" ")[0];
-
-        if (valueText.equals("false") || valueText.equals("true")) {
-            value = Boolean.valueOf(valueText);
-            int valueEndIndex = indexForValueStart + valueText.length();
-            index = calIndexForNextLabelStart(commandTexts, valueEndIndex);
-        } else {
-            index = indexForValueStart;
+    private int tryExtractListStringValue(String commandTexts, int indexForValueStart) {
+        String textWithValue = commandTexts.substring(indexForValueStart);
+        int res = indexForValueStart;
+        if (textWithValue.charAt(0)=='[' && textWithValue.contains("]")){
+            String[] splitValue = textWithValue.substring(1).split("]");
+            if (splitValue.length > 0 && !splitValue[0].equals("")) {
+                String value = splitValue[0];
+                this.value = Arrays.asList(value.split(","));
+                int valueEndIndex = indexForValueStart + 1 + value.length() + 1;
+                res = calIndexForNextLabelStart(commandTexts, valueEndIndex);
+            }else {
+                this.value = Arrays.asList(new String[]{});
+                int valueEndIndex = indexForValueStart + 1 + 1;
+                res = calIndexForNextLabelStart(commandTexts, valueEndIndex);
+            }
         }
-        return commandTexts.substring(index);
+        return res;
     }
 
-    private String tryExtractIntegerValue(String commandTexts) {
-        int index;
-        int indexForValueStart = calIndexForValueStart(commandTexts, 0);
-        String valueText = commandTexts.substring(indexForValueStart).split(" ")[0];
-        if (valueText.matches("[0-9]+")) {
-            value = Integer.parseInt(valueText);
-            int valueEndIndex = indexForValueStart + valueText.length();
-            index = calIndexForNextLabelStart(commandTexts, valueEndIndex);
-        } else {
-            index = indexForValueStart;
-        }
-        return commandTexts.substring(index);
-    }
 }

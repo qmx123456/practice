@@ -1,6 +1,9 @@
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class ArgsParserTest {
 
     private final ArgsParser argsParser = new ArgsParser("l:boolean:true p:integer:0 d:string:");
@@ -20,10 +23,8 @@ public class ArgsParserTest {
         String commandText = "-g [this,is,a,list] -d [1,2,-3,5]";
         argsParser.parse(commandText);
 
-        Assert.assertEquals(4, argsParser.get("g"));
-//        Assert.assertEquals("this", argsParser.get("g").get(0));
-
-        Assert.assertEquals(4, argsParser.get("d"));
-//        Assert.assertEquals(1, argsParser.get("d").get(0));
+        List<String> g= Arrays.asList((String[])argsParser.get("g"));
+        Assert.assertEquals(4, g.size());
+        Assert.assertEquals("this", g.get(0));
     }
 }

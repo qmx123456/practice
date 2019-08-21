@@ -148,4 +148,44 @@ public class ArgSpecTest {
         Assert.assertEquals("tt -p 80", index);
         Assert.assertEquals("", argSpec.value);
     }
+
+    @Test
+    public void should_extract_list_string_value() {
+        ArgSpec argSpec = ArgSpec.build("g:list<string>:");
+
+        String commandsTextNormal = "-g [this,is] -d [1,2,-3,5]";
+        String ct = argSpec.set(commandsTextNormal);
+        List<String> value = (List<String>)argSpec.value;
+
+        Assert.assertEquals(2, value.size());
+        Assert.assertEquals("this", value.get(0));
+        Assert.assertEquals("is", value.get(1));
+        Assert.assertEquals("-d [1,2,-3,5]", ct);
+
+        argSpec.set("-g [this,is]");
+        commandsTextNormal = "-g [this,is,a,list";
+        ct = argSpec.set(commandsTextNormal);
+        value = (List<String>)argSpec.value;
+        Assert.assertEquals(2, value.size());
+
+        argSpec.set("-g [this,is]");
+        commandsTextNormal = "-g this,is,a,list]";
+        ct = argSpec.set(commandsTextNormal);
+        value = (List<String>)argSpec.value;
+        Assert.assertEquals(2, value.size());
+
+        argSpec.set("-g [this,is]");
+        commandsTextNormal = "-g []";
+        ct = argSpec.set(commandsTextNormal);
+        value = (List<String>)argSpec.value;
+        Assert.assertEquals(0, value.size());
+        Assert.assertEquals("", ct);
+
+        argSpec.set("-g [this,is]");
+        commandsTextNormal = "-g [] -d";
+        ct = argSpec.set(commandsTextNormal);
+        value = (List<String>)argSpec.value;
+        Assert.assertEquals(0, value.size());
+        Assert.assertEquals("-d", ct);
+    }
 }
