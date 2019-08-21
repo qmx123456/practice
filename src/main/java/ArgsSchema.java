@@ -26,7 +26,7 @@ public class ArgsSchema {
             split = ct.split(" ");
             boolean b = split[0].length() == 2 && split[0].charAt(0) == '-';
             if (b && argSpecDict.get(split[0].substring(1))!=null) {
-                ct = argSpecDict.get(split[0].substring(1)).set(ct);
+                ct = argSpecDict.get(split[0].substring(1)).set(ct.substring(2));
             }else {
                 ct = ct.substring(split[0].length()).trim();
             }
