@@ -6,8 +6,12 @@ public class ArgsSchema {
     private final Map<String, ArgSpec> argSpecDict;
 
     public ArgsSchema(String schemaText) {
-        String[] split = schemaText.split(" ");
         argSpecDict = new HashMap<>();
+        extractorSchema(schemaText);
+    }
+
+    private void extractorSchema(String schemaText) {
+        String[] split = schemaText.split(" ");
         Arrays.asList(split).stream().map(ArgSpec::build).filter(arg -> arg != null).forEach(a -> argSpecDict.put(a.label, a));
     }
 
