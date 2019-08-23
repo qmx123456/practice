@@ -1,17 +1,15 @@
-import java.util.List;
-
 public abstract class IExtract {
 
-    private static final String listIntegerType = "list<integer>";
-    private static final String listStringType = "list<string>";
-    private static final String boolType = "boolean";
-    private static final String integerType = "integer";
-    private static final String stringType = "string";
-    public abstract int extract(String commandTexts, ArgSpec argSpec);
+    public static final String listIntegerType = "list<integer>";
+    public static final String listStringType = "list<string>";
+    public static final String boolType = "boolean";
+    public static final String integerType = "integer";
+    public static final String stringType = "string";
 
-    public abstract void valueIfInputValue(String val, ArgSpec argSpec);
+    public abstract String extract(String commandTexts, ArgSpec argSpec);
+    public abstract String getType();
 
-    public abstract void valueIfNotInput(ArgSpec argSpec);
+    public abstract void valueDefault(ArgSpec argSpec);
 
     int calIndexForNextLabelStart(String commandTexts, int index) {
         return index + spacesStartWith(commandTexts.substring(index));
@@ -28,18 +26,10 @@ public abstract class IExtract {
         return a;
     }
 
-    public void getDefaultValue(List<String> splits, ArgSpec argSpec) {
-        if (splits.size() == 2) {
-            valueIfNotInput(argSpec);
-        }
-        else{
-            valueIfInputValue(splits.get(2), argSpec);
-        }
-    }
-
     public static IExtract build(String typeText) {
+        String type = typeText.trim();
         IExtract extractor = null;
-        switch (typeText) {
+        switch (type) {
             case integerType:
                 extractor = new IntegerExtractor();break;
             case boolType:
@@ -54,8 +44,8 @@ public abstract class IExtract {
         return extractor;
     }
 
-    public static boolean isTypeRight(String typeText) {
-            return typeText.equals(boolType) || typeText.equals(integerType)
-                    || typeText.equals(stringType) || typeText.equals(listStringType) || typeText.equals(listIntegerType);
+    public String getInitValue(String substring, ArgSpec argSpec){
+        valueDefault(argSpec);
+        return extract(substring, argSpec);
     }
 }

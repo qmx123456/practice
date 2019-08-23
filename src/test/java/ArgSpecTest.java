@@ -2,94 +2,54 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArgSpecTest {
 
-    private String argText;
+    private IExtract booleanExtractor;
+    private IntegerExtractor integerExtractor;
+    private ListIntegerExtractor listIntegerExtractor;
+    private ListStringExtractor listStringExtractor;
+    private StringExtractor stringExtractor;
 
     @Before
-    public void setUp() {
-        argText = "l:boolean:true";
+    public void setUp(){
+        booleanExtractor = new BooleanExtractor();
+        integerExtractor = new IntegerExtractor();
+        listIntegerExtractor = new ListIntegerExtractor();
+        listStringExtractor = new ListStringExtractor();
+        stringExtractor = new StringExtractor();
     }
 
     @Test
     public void should_get_label_type_from_arg_text(){
-        ArgSpec argSpec = ArgSpec.build("l:boolean:true");
-
+        ArgSpec argSpec = new ArgSpec("l", booleanExtractor);
         Assert.assertEquals("boolean", argSpec.type);
         Assert.assertEquals("l", argSpec.label);
 
-        argText = "g:list<string>";
-        argSpec = ArgSpec.build(argText);
+        argSpec = new ArgSpec("g", listStringExtractor);
         Assert.assertEquals("list<string>", argSpec.type);
 
-        argText = "g:list<integer>";
-        argSpec = ArgSpec.build(argText);
+        argSpec = new ArgSpec("g", stringExtractor);
+        Assert.assertEquals("string", argSpec.type);
+
+        argSpec = new ArgSpec("g", listIntegerExtractor);
         Assert.assertEquals("list<integer>", argSpec.type);
     }
 
     @Test
-    public void should_get_default_value(){
-        ArgSpec argSpec = ArgSpec.build("l:integer:0");
-        Assert.assertEquals(0, argSpec.value);
-
-        argSpec = ArgSpec.build("l:boolean:false");
-        Assert.assertEquals(false, argSpec.value);
-
-        argSpec = ArgSpec.build("l:string:wp");
-        Assert.assertEquals("wp", argSpec.value);
-
-        argSpec = ArgSpec.build("l:string:");
-        Assert.assertEquals("", argSpec.value);
-
-        argSpec = ArgSpec.build("g:list<string>:");
-        Assert.assertEquals(0, ((List<?>)argSpec.value).size());
-
-        argSpec = ArgSpec.build("g:list<integer>:");
-        Assert.assertEquals(0, ((List<?>)argSpec.value).size());
-
-        argSpec = ArgSpec.build("l:integer");
-        Assert.assertEquals(0, argSpec.value);
-
-        argSpec = ArgSpec.build("l:boolean");
-        Assert.assertEquals(false, argSpec.value);
-
-        argSpec = ArgSpec.build("l:integer:wp");
-        Assert.assertEquals(0, argSpec.value);
-
-        argSpec = ArgSpec.build("l:boolean:wp");
-        Assert.assertEquals(false, argSpec.value);
-    }
-
-    @Test
     public void should_override_equals(){
-        ArgSpec argSpec = ArgSpec.build(argText);
+        ArgSpec argSpec = new ArgSpec("l", booleanExtractor);
+        ArgSpec argSpecAnother = new ArgSpec("l", booleanExtractor);
 
-        Assert.assertEquals(ArgSpec.build(argText), argSpec);
-    }
-
-    @Test
-    public void should_argSpec_be_null_when_arg_text_is_not_right(){
-        ArgSpec argSpec = ArgSpec.build("wp");
-        Assert.assertEquals(null, argSpec);
-
-        argSpec = ArgSpec.build("-");
-        Assert.assertEquals(null, argSpec);
-
-        argSpec = ArgSpec.build("p:bb");
-        Assert.assertEquals(null, argSpec);
-    }
-
-    @Test
-    public void should_be_trimed_when_arg_text_contain_spaces_before_or_after(){
-        ArgSpec argSpec = ArgSpec.build(" l : boolean : false ");
-        Assert.assertEquals("l", argSpec.label);
+        Assert.assertEquals(argSpecAnother, argSpec);
     }
 
     @Test
     public void should_extract_integer_value(){
-        ArgSpec argSpec = ArgSpec.build("d:integer:0");
+        ArgSpec argSpec = new ArgSpec("l", integerExtractor);
+        argSpec.value = 0;
 
         String commandsTextNormal = " 1 -l true";
         String nextCommand = argSpec.set(commandsTextNormal);
@@ -119,14 +79,15 @@ public class ArgSpecTest {
 
     @Test
     public void should_extract_boolean_value() {
-        ArgSpec argSpec = ArgSpec.build("l:boolean:false");
+        ArgSpec argSpec = new ArgSpec("l", booleanExtractor);
+        argSpec.value = false;
 
         String commandsTextNormal = " true -p 80";
         String nextCommand = argSpec.set(commandsTextNormal);
         Assert.assertEquals("-p 80", nextCommand);
         Assert.assertEquals(true, argSpec.value);
 
-        argSpec = ArgSpec.build("l:boolean:false");
+        argSpec.value = false;
         String ctWithValueNotRight = " tt -p 80";
         nextCommand = argSpec.set(ctWithValueNotRight);
         Assert.assertEquals("tt -p 80", nextCommand);
@@ -135,14 +96,15 @@ public class ArgSpecTest {
 
     @Test
     public void should_extract_string_value() {
-        ArgSpec argSpec = ArgSpec.build("l:string:");
+        ArgSpec argSpec = new ArgSpec("l", stringExtractor);
+        argSpec.value = "";
 
         String commandsTextNormal = " d:/ -p 80";
         String index = argSpec.set(commandsTextNormal);
         Assert.assertEquals("-p 80", index);
         Assert.assertEquals("d:/", argSpec.value);
 
-        argSpec = ArgSpec.build("l:string:");
+        argSpec.value = "";
         String ctWithValueNotRight = " tt -p 80";
         index = argSpec.set(ctWithValueNotRight);
         Assert.assertEquals("tt -p 80", index);
@@ -151,7 +113,8 @@ public class ArgSpecTest {
 
     @Test
     public void should_extract_list_string_value() {
-        ArgSpec argSpec = ArgSpec.build("g:list<string>:");
+        ArgSpec argSpec = new ArgSpec("g", listStringExtractor);
+        argSpec.value = new ArrayList<String>();
 
         String commandsTextNormal = " [this,is] -d [1,2,-3,5]";
         String ct = argSpec.set(commandsTextNormal);

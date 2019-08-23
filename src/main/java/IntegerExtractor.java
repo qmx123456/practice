@@ -1,6 +1,6 @@
 public class IntegerExtractor extends IExtract {
     @Override
-    public int extract(String valueText, ArgSpec argSpec) {
+    public String extract(String valueText, ArgSpec argSpec) {
         String valueStartText = valueText.substring(spacesStartWith(valueText)).split(" ")[0];
 
         int index = spacesStartWith(valueText);
@@ -9,20 +9,16 @@ public class IntegerExtractor extends IExtract {
             int valueEndIndex2 = spacesStartWith(valueText) + valueStartText.length();
             index = calIndexForNextLabelStart(valueText, valueEndIndex2);
         }
-        return index;
+        return valueText.substring(index);
     }
 
     @Override
-    public void valueIfInputValue(String val, ArgSpec argSpec) {
-        try {
-            argSpec.value = Integer.valueOf(val);
-        } catch (Exception e) {
-            argSpec.value = 0;
-        }
-    }
-
-    @Override
-    public void valueIfNotInput(ArgSpec argSpec) {
+    public void valueDefault(ArgSpec argSpec) {
         argSpec.value = 0;
+    }
+
+    @Override
+    public String getType() {
+        return integerType;
     }
 }
