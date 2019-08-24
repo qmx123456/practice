@@ -1,5 +1,8 @@
 public class BooleanExtractor extends IExtract {
 
+    public BooleanExtractor(){
+        type = "boolean";
+    }
     @Override
     public String extract(String valueText, ArgSpec argSpec) {
         String valueStartText = valueText.substring(spacesStartWith(valueText)).split(" ")[0];
@@ -16,10 +19,5 @@ public class BooleanExtractor extends IExtract {
     @Override
     public void valueDefault(ArgSpec argSpec) {
         argSpec.value = false;
-    }
-
-    @Override
-    public String getType() {
-        return boolType;
     }
 }

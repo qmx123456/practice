@@ -1,4 +1,8 @@
 public class IntegerExtractor extends IExtract {
+    public IntegerExtractor(){
+        type = "integer";
+    }
+
     @Override
     public String extract(String valueText, ArgSpec argSpec) {
         String valueStartText = valueText.substring(spacesStartWith(valueText)).split(" ")[0];
@@ -15,10 +19,5 @@ public class IntegerExtractor extends IExtract {
     @Override
     public void valueDefault(ArgSpec argSpec) {
         argSpec.value = 0;
-    }
-
-    @Override
-    public String getType() {
-        return integerType;
     }
 }

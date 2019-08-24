@@ -1,4 +1,3 @@
-
 public class ArgSpec {
     public final String label;
     public final String type;

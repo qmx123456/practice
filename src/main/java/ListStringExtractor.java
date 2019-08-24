@@ -2,6 +2,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ListStringExtractor extends IExtract {
+
+    public ListStringExtractor() {
+        type = "list<string>";
+    }
+
     @Override
     public String extract(String valueText, ArgSpec argSpec) {
         String textWithValue = valueText.substring(spacesStartWith(valueText));
@@ -25,10 +30,5 @@ public class ListStringExtractor extends IExtract {
     @Override
     public void valueDefault(ArgSpec argSpec) {
         argSpec.value = new ArrayList<String>();
-    }
-
-    @Override
-    public String getType() {
-        return listStringType;
     }
 }

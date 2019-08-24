@@ -1,6 +1,10 @@
 import java.io.File;
 
 public class StringExtractor extends IExtract {
+    public StringExtractor(){
+        type = "string";
+    }
+
     @Override
     public String extract(String valueText, ArgSpec argSpec) {
         int spacesStartWith = spacesStartWith(valueText);
@@ -19,10 +23,5 @@ public class StringExtractor extends IExtract {
     @Override
     public void valueDefault(ArgSpec argSpec) {
         argSpec.value = "";
-    }
-
-    @Override
-    public String getType() {
-        return stringType;
     }
 }

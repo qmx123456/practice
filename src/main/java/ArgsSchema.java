@@ -17,7 +17,7 @@ public class ArgsSchema {
             String labelText = split[0];
             if (split.length >= 2) {
                 String label = extractLabel(split[0]);
-                IExtract extract = IExtract.build(split[1]);
+                IExtract extract = ExtractorFactory.build(split[1]);
                 if (label != null && extract != null) {
                     ArgSpec argSpec = new ArgSpec(label, extract);
                     ct = extract.getInitValue(ct.substring(labelText.length() + split[1].length() + 2), argSpec);
