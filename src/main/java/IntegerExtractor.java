@@ -1,4 +1,6 @@
 public class IntegerExtractor extends IExtract {
+    static IExtract extractor;
+
     public IntegerExtractor(){
         type = "integer";
     }
@@ -19,5 +21,12 @@ public class IntegerExtractor extends IExtract {
     @Override
     public void valueDefault(ArgSpec argSpec) {
         argSpec.value = 0;
+    }
+
+    public static IExtract build(){
+        if (extractor == null){
+            extractor = new IntegerExtractor();
+        }
+        return extractor;
     }
 }

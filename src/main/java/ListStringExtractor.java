@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ListStringExtractor extends IExtract {
+    static IExtract extractor;
 
     public ListStringExtractor() {
         type = "list<string>";
@@ -30,5 +31,12 @@ public class ListStringExtractor extends IExtract {
     @Override
     public void valueDefault(ArgSpec argSpec) {
         argSpec.value = new ArrayList<String>();
+    }
+
+    public static IExtract build() {
+        if (extractor == null){
+            extractor = new ListStringExtractor();
+        }
+        return extractor;
     }
 }

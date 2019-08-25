@@ -1,4 +1,5 @@
 public class BooleanExtractor extends IExtract {
+    static IExtract extractor;
 
     public BooleanExtractor(){
         type = "boolean";
@@ -19,5 +20,12 @@ public class BooleanExtractor extends IExtract {
     @Override
     public void valueDefault(ArgSpec argSpec) {
         argSpec.value = false;
+    }
+
+    public static IExtract build() {
+            if (extractor == null){
+                extractor = new BooleanExtractor();
+            }
+            return extractor;
     }
 }

@@ -1,6 +1,8 @@
 import java.io.File;
 
 public class StringExtractor extends IExtract {
+    static IExtract extractor;
+
     public StringExtractor(){
         type = "string";
     }
@@ -23,5 +25,12 @@ public class StringExtractor extends IExtract {
     @Override
     public void valueDefault(ArgSpec argSpec) {
         argSpec.value = "";
+    }
+
+    public static IExtract build() {
+        if (extractor == null){
+            extractor = new StringExtractor();
+        }
+        return extractor;
     }
 }

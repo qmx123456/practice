@@ -5,15 +5,15 @@ public class ExtractorFactory {
         IExtract extractor = null;
         switch (type) {
             case "integer":
-                extractor = new IntegerExtractor();break;
+                extractor = IntegerExtractor.build();break;
             case "boolean":
-                extractor = new BooleanExtractor();break;
+                extractor = BooleanExtractor.build();break;
             case "string":
-                extractor = new StringExtractor();break;
+                extractor = StringExtractor.build();break;
             case "list<string>":
-                extractor = new ListStringExtractor();break;
+                extractor = ListStringExtractor.build();break;
             case "list<integer>":
-                extractor = new ListIntegerExtractor();break;
+                extractor = ListIntegerExtractor.build();break;
         }
         return extractor;
     }
