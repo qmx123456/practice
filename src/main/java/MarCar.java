@@ -16,4 +16,8 @@ public class MarCar {
     public void forward(int i) {
         location.forward(i);
     }
+
+    public void back(int i) {
+        location.back(i);
+    }
 }
