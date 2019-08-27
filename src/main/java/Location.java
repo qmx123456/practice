@@ -26,4 +26,13 @@ public class Location {
     public char getDirection() {
         return direction;
     }
+
+    public void forward(int i) {
+        switch (direction) {
+            case 'N':this.y += i;break;
+            case 'S':this.y -=i;break;
+            case 'E':this.x +=i;break;
+            case 'W':this.x -=i;break;
+        }
+    }
 }
