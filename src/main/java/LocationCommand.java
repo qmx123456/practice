@@ -8,10 +8,8 @@ public class LocationCommand extends Command{
     }
 
     public void run(Location location) {
-        location.setX(this.location.getX());
-        location.setY(this.location.getY());
-        location.setDirection(this.location.getDirection());
-    }
+        location.set(this.location);
+        }
 
     public Location getLocation() {
         return location;

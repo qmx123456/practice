@@ -64,4 +64,10 @@ public class Location {
             case "W":setX(x-step);break;
         }
     }
+
+    public void set(Location ano) {
+        setX(ano.getX());
+        setY(ano.getY());
+        setDirection(ano.getDirection());
+    }
 }
