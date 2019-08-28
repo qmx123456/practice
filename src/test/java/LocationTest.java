@@ -3,48 +3,26 @@ import org.junit.Test;
 
 public class LocationTest {
     @Test
-    public void should_overide_equal(){
-        Location location = new Location(0, 0, 'N');
-        Location anotherLocation = new Location(0, 0, 'N');
-
-        Assert.assertEquals(location, anotherLocation);
+    public void should_set_location(){
+        Location location = new Location();
+        location.setX(0);
+        location.setY(0);
+        location.setDirection("N");
+        Assert.assertEquals(0, location.getX());
+        Assert.assertEquals(0, location.getY());
+        Assert.assertEquals("N", location.getDirection());
     }
 
     @Test
-    public void should_forward(){
-        Location location = new Location(0, 0, 'N');
-        location.forward(1);
-        Assert.assertEquals(new Location(0, 1, 'N'), location);
-
-        location = new Location(0, 0, 'S');
-        location.forward(1);
-        Assert.assertEquals(new Location(0, -1, 'S'), location);
-
-        location = new Location(0, 0, 'E');
-        location.forward(1);
-        Assert.assertEquals(new Location(1, 0, 'E'), location);
-
-        location = new Location(0, 0, 'W');
-        location.forward(1);
-        Assert.assertEquals(new Location(-1, 0, 'W'), location);
+    public void should_override_toString(){
+        Location location = new Location(0, 0, "N");
+        Assert.assertEquals("0,0,N", location.toString());
     }
 
     @Test
-    public void should_back(){
-        Location location = new Location(0, 0, 'N');
-        location.back(1);
-        Assert.assertEquals(new Location(0, -1, 'N'), location);
-
-        location = new Location(0, 0, 'S');
-        location.back(1);
-        Assert.assertEquals(new Location(0, 1, 'S'), location);
-
-        location = new Location(0, 0, 'E');
-        location.back(1);
-        Assert.assertEquals(new Location(-1, 0, 'E'), location);
-
-        location = new Location(0, 0, 'W');
-        location.back(1);
-        Assert.assertEquals(new Location(1, 0, 'W'), location);
+    public void should_override_equals(){
+        Location location = new Location(0, 0, "N");
+        Assert.assertEquals(new Location(0,0,"N"), location);
     }
+
 }

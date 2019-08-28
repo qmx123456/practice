@@ -1,20 +1,28 @@
 public class Location {
     private int x;
     private int y;
-    private char direction;
+    private String direction;
 
-    public Location(int x, int y, char n) {
+    public Location() {
+    }
+
+    public Location(int x, int y, String direction) {
+
         this.x = x;
         this.y = y;
-        direction = n;
+        this.direction = direction;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        Location ano = (Location) obj;
-        return this.x == ano.getX() && this.y == ano.getY() && this.direction == ano.getDirection();
+    public String toString(){
+        return x+","+y+","+direction;
     }
 
+    @Override
+    public boolean equals(Object obj){
+        Location ano = (Location) obj;
+        return x == ano.getX() &&y==ano.getY()&&direction.equals(ano.getDirection());
+    }
     public int getX() {
         return x;
     }
@@ -23,25 +31,19 @@ public class Location {
         return y;
     }
 
-    public char getDirection() {
+    public String getDirection() {
         return direction;
     }
 
-    public void forward(int i) {
-        switch (direction) {
-            case 'N':this.y += i;break;
-            case 'S':this.y -=i;break;
-            case 'E':this.x +=i;break;
-            case 'W':this.x -=i;break;
-        }
+    public void setX(int x) {
+        this.x = x;
     }
 
-    public void back(int i) {
-        switch (direction) {
-            case 'N':this.y -= i;break;
-            case 'S':this.y +=i;break;
-            case 'E':this.x -=i;break;
-            case 'W':this.x +=i;break;
-        }
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
