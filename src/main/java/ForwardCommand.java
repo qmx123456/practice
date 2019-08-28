@@ -7,12 +7,7 @@ public class ForwardCommand extends Command {
 
     @Override
     public void run(Location location) {
-        switch (location.getDirection()){
-            case "N":location.setY(location.getY()+step);break;
-            case "S":location.setY(location.getY()-step);break;
-            case "E":location.setX(location.getX()+step);break;
-            case "W":location.setX(location.getX()-step);break;
-        }
+        location.forward(step);
     }
 
     public int getStep() {

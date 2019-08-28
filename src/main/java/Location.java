@@ -46,4 +46,22 @@ public class Location {
     public void setY(int y) {
         this.y = y;
     }
+
+    public void back(int step) {
+        switch (direction){
+            case "N":setY(y-step);break;
+            case "S":setY(y+step);break;
+            case "E":setX(x-step);break;
+            case "W":setX(x+step);break;
+        }
+    }
+
+    public void forward(int step){
+        switch (direction){
+            case "N":setY(y+step);break;
+            case "S":setY(y-step);break;
+            case "E":setX(x+step);break;
+            case "W":setX(x-step);break;
+        }
+    }
 }
