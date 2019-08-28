@@ -13,4 +13,16 @@ public class CommandFactoryTest {
         Command command = CommandFactory.build("location:0,0,N");
         Assert.assertEquals(LocationCommand.class,command.getClass());
     }
+
+    @Test
+    public void should_return_forward_command(){
+        Command command = CommandFactory.build("f:1");
+        Assert.assertEquals(ForwardCommand.class,command.getClass());
+    }
+
+    @Test
+    public void should_return_back_command(){
+        Command command = CommandFactory.build("b:1");
+        Assert.assertEquals(BackCommand.class,command.getClass());
+    }
 }
