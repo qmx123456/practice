@@ -1,7 +1,10 @@
+import org.jmock.Expectations;
+import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class LocationTest {
+    private final JUnit4Mockery context = new JUnit4Mockery();
     @Test
     public void should_set_location() {
         Location location = new Location();
@@ -72,17 +75,27 @@ public class LocationTest {
     @Test
     public void should_turn_left() {
         Location carLocation = new Location(0, 0, "N");
+        final Direction mock = context.mock(Direction.class);
+        context.checking(new Expectations(){{
+            oneOf(mock).turnLeft(1);
+            will(returnValue(West.build()));
+        }});
+        carLocation.setDirection(mock);
         carLocation.turnLeft(1);
         Assert.assertEquals(new Location(0, 0, "W"), carLocation);
-        //mock
     }
 
     @Test
     public void should_turn_right() {
         Location carLocation = new Location(0, 0, "N");
+        final Direction mock = context.mock(Direction.class);
+        context.checking(new Expectations(){{
+            oneOf(mock).turnRight(1);
+            will(returnValue(East.build()));
+        }});
+        carLocation.setDirection(mock);
         carLocation.turnRight(1);
         Assert.assertEquals(new Location(0, 0, "E"), carLocation);
-        //mock
     }
 
 }

@@ -1,4 +1,3 @@
 public abstract class Command {
-
-    public abstract void run(Location location);
+    public abstract void run(IBehavior location);
 }

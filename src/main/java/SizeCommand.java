@@ -9,7 +9,7 @@ public class SizeCommand extends Command {
         y = Integer.parseInt(split[1]);
     }
 
-    public void run(Location location) {
+    public void run(IBehavior location) {
 
     }
 

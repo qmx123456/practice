@@ -1,7 +1,10 @@
+import org.jmock.Expectations;
+import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class ForwardCommandTest {
+    private final JUnit4Mockery context = new JUnit4Mockery();
     @Test
     public void should_init_step(){
         ForwardCommand command = new ForwardCommand("1");
@@ -12,9 +15,12 @@ public class ForwardCommandTest {
     public void should_change_location(){
         ForwardCommand command = new ForwardCommand("1");
 
-        Location carLocation = new Location(0, 0, "N");
-        command.run(carLocation);
-        Assert.assertEquals(new Location(0,1,"N"), carLocation);
+
+        final IBehavior mock = context.mock(IBehavior.class);
+        context.checking(new Expectations(){{
+            oneOf(mock).forward(1);
+        }});
+        command.run(mock);
     }
 
 }

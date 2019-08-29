@@ -6,7 +6,7 @@ public class BackCommand extends Command{
     }
 
     @Override
-    public void run(Location location) {
+    public void run(IBehavior location) {
         location.back(step);
     }
 

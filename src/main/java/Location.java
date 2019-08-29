@@ -1,4 +1,4 @@
-public class Location {
+public class Location implements IBehavior {
     private final String north = "N";
     private final String south = "S";
     private final String east = "E";
@@ -74,10 +74,12 @@ public class Location {
         setDirection(ano.getDirection());
     }
 
+    @Override
     public void turnLeft(int step) {
         direction = direction.turnLeft(step);
     }
 
+    @Override
     public void turnRight(int step) {
         direction = direction.turnRight(step);
     }

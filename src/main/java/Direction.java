@@ -1,11 +1,7 @@
-public abstract class Direction {
-    String directionChar;
+public interface Direction {
+    Direction turnLeft(int step);
 
-    public abstract Direction turnLeft(int step);
+    String getDirectionText();
 
-    public String getDirectionText() {
-        return directionChar;
-    }
-
-    public abstract Direction turnRight(int step);
+    Direction turnRight(int step);
 }

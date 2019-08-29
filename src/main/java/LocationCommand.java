@@ -7,9 +7,10 @@ public class LocationCommand extends Command{
         location = new Location(Integer.parseInt(split[0]),Integer.parseInt(split[1]),split[2]);
     }
 
-    public void run(Location location) {
+    @Override
+    public void run(IBehavior location) {
         location.set(this.location);
-        }
+    }
 
     public Location getLocation() {
         return location;

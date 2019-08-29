@@ -1,7 +1,6 @@
-public class North extends Direction {
-
+public class North implements Direction {
+    String directionChar;
     private static North direction;
-
     private North(){
         directionChar = "N";
     }
@@ -18,7 +17,6 @@ public class North extends Direction {
         }
         return direction;
     }
-
     @Override
     public Direction turnRight(int step) {
         int i = step % 4;
@@ -33,11 +31,15 @@ public class North extends Direction {
         return direction;
 
     }
-
     public static Direction build() {
         if (direction == null) {
             direction = new North();
         }
         return direction;
     }
+
+    public String getDirectionText() {
+        return directionChar;
+    }
 }
+

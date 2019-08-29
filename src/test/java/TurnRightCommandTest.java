@@ -1,7 +1,12 @@
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class TurnRightCommandTest {
+    Mockery context = new JUnit4Mockery();
+
     @Test
     public void should_init_step(){
         TurnRightCommand command = new TurnRightCommand("2");
@@ -12,10 +17,13 @@ public class TurnRightCommandTest {
     public void should_change_location(){
         TurnRightCommand command = new TurnRightCommand("1");
 
-        //mock
-        Location carLocation = new Location(0, 0, "N");
-        command.run(carLocation);
-        Assert.assertEquals(new Location(0,0,"E"), carLocation);
+        final IBehavior mock = context.mock(IBehavior.class);
+        context.checking(new Expectations() {
+            {
+                oneOf(mock).turnRight(1);
+            }
+        });
+        command.run(mock);
     }
 
 }

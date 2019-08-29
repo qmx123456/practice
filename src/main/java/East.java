@@ -1,4 +1,5 @@
-public class East extends Direction {
+public class East implements Direction {
+    String directionChar;
 
     private static East direction;
 
@@ -29,5 +30,9 @@ public class East extends Direction {
             direction = new East();
         }
         return direction;
+    }
+
+    public String getDirectionText() {
+        return directionChar;
     }
 }
