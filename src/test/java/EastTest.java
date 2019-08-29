@@ -2,6 +2,17 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class EastTest {
+    @Test
+    public void should_turn_left() {
+        Direction direction = East.build();
+        Assert.assertEquals(North.build(), direction.turnLeft(1));
+
+        direction = East.build();
+        Assert.assertEquals(West.build(), direction.turnLeft(2));
+
+        direction = East.build();
+        Assert.assertEquals(South.build(), direction.turnLeft(3));
+    }
 
     @Test
     public void should_get_unique_direction(){
