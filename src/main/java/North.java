@@ -19,6 +19,21 @@ public class North extends Direction {
         return direction;
     }
 
+    @Override
+    public Direction turnRight(int step) {
+        int i = step % 4;
+        switch (i) {
+            case 1:
+                return East.build();
+            case 2:
+                return South.build();
+            case 3:
+                return West.build();
+        }
+        return direction;
+
+    }
+
     public static Direction build() {
         if (direction == null) {
             direction = new North();

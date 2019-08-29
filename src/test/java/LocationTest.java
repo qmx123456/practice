@@ -74,26 +74,15 @@ public class LocationTest {
         Location carLocation = new Location(0, 0, "N");
         carLocation.turnLeft(1);
         Assert.assertEquals(new Location(0, 0, "W"), carLocation);
+        //mock
+    }
 
-        carLocation = new Location(0, 0, "N");
-        carLocation.turnLeft(2);
-        Assert.assertEquals(new Location(0, 0, "S"), carLocation);
-
-        carLocation = new Location(0, 0, "N");
-        carLocation.turnLeft(3);
+    @Test
+    public void should_turn_right() {
+        Location carLocation = new Location(0, 0, "N");
+        carLocation.turnRight(1);
         Assert.assertEquals(new Location(0, 0, "E"), carLocation);
-
-//        carLocation = new Location(0, 0, "S");
-//        carLocation.turnLeft(1);
-//        Assert.assertEquals(new Location(0, 0, "N"), carLocation);
-//
-//        carLocation = new Location(0, 0, "E");
-//        carLocation.turnLeft(1);
-//        Assert.assertEquals(new Location(0, 0, "W"), carLocation);
-//
-//        carLocation = new Location(0, 0, "W");
-//        carLocation.turnLeft(1);
-//        Assert.assertEquals(new Location(0, 0, "E"), carLocation);
+        //mock
     }
 
 }

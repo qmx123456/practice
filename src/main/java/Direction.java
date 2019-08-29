@@ -6,4 +6,6 @@ public abstract class Direction {
     public String getDirectionText() {
         return directionChar;
     }
+
+    public abstract Direction turnRight(int step);
 }

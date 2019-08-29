@@ -29,4 +29,11 @@ public class MarCarTest {
         String location = marCar.run("size:100,100 location:0,0,N l:2");
         Assert.assertEquals("0,0,S", location);
     }
+
+    @Test
+    public void should_change_direction_after_turn_right(){
+        MarCar marCar = new MarCar();
+        String location = marCar.run("size:100,100 location:0,0,N r:1");
+        Assert.assertEquals("0,0,E", location);
+    }
 }

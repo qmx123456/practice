@@ -7,6 +7,7 @@ public class CommandFactory {
             case "f": return new ForwardCommand(split[1]);
             case "b": return new BackCommand(split[1]);
             case "l": return new TurnLeftCommand(split[1]);
+            case "r": return new TurnRightCommand(split[1]);
         }
         return null;
     }

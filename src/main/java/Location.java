@@ -77,4 +77,8 @@ public class Location {
     public void turnLeft(int step) {
         direction = direction.turnLeft(step);
     }
+
+    public void turnRight(int step) {
+        direction = direction.turnRight(step);
+    }
 }
