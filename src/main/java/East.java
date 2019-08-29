@@ -1,8 +1,6 @@
 public class East implements Direction {
     String directionChar;
-
     private static East direction;
-
     private East(){
         directionChar = "E";
     }
@@ -22,7 +20,17 @@ public class East implements Direction {
 
     @Override
     public Direction turnRight(int step) {
-        return null;
+        int i = step % 4;
+        switch (i) {
+            case 1:
+                return South.build();
+            case 2:
+                return West.build();
+            case 3:
+                return North.build();
+        }
+        return direction;
+
     }
 
     public static Direction build() {
