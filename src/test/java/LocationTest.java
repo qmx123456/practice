@@ -20,8 +20,30 @@ public class LocationTest {
         Location ano = new Location(10, 10, "S");
         location.set(ano);
         Assert.assertEquals(ano, location);
-
     }
+
+    @Test
+    public void should_in_size_when_size_is_decided(){
+        Location location = new Location();
+
+        location.setSize(new Size(10,10));
+        location.set(new Location(11,0,"N"));
+        Assert.assertEquals(new Location(0,0,"N"), location);
+
+        location.setSize(new Size(10,10));
+        location.set(new Location(-1,0,"N"));
+        Assert.assertEquals(new Location(10,0,"N"), location);
+
+        location.setSize(new Size(10,10));
+        location.set(new Location(0,11,"N"));
+        Assert.assertEquals(new Location(0,0,"N"), location);
+
+        location.setSize(new Size(10,10));
+        location.set(new Location(0,-1,"N"));
+        Assert.assertEquals(new Location(0,10,"N"), location);
+    }
+
+
 
     @Test
     public void should_override_toString() {
@@ -34,7 +56,6 @@ public class LocationTest {
         Location location = new Location(0, 0, "N");
         Assert.assertEquals(new Location(0, 0, "N"), location);
     }
-
 
     @Test
     public void should_back() {

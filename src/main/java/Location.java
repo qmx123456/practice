@@ -70,9 +70,20 @@ public class Location implements IBehavior {
     }
 
     public void set(Location ano) {
-        setX(ano.getX());
-        setY(ano.getY());
+        setX(matchWithSize(size.getX(), ano.getX()));
+        setY(matchWithSize(size.getY(), ano.getY()));
         setDirection(ano.getDirection());
+    }
+
+    private int matchWithSize(int max, int source) {
+        int ano = source;
+        if (source > max){
+            ano = source - max -1;
+        }
+        if (source < 0){
+            ano = max+source+1;
+        }
+        return ano;
     }
 
     @Override
