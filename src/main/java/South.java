@@ -21,7 +21,16 @@ public class South implements Direction {
 
     @Override
     public Direction turnRight(int step) {
-        return null;
+        int i = step % 4;
+        switch (i) {
+            case 1:
+                return West.build();
+            case 2:
+                return North.build();
+            case 3:
+                return East.build();
+        }
+        return direction;
     }
 
     public static Direction build() {

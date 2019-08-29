@@ -13,6 +13,17 @@ public class SouthTest {
         direction = South.build();
         Assert.assertEquals(West.build(), direction.turnLeft(3));
     }
+    @Test
+    public void should_turn_right() {
+        Direction direction = South.build();
+        Assert.assertEquals(West.build(), direction.turnRight(1));
+
+        direction = South.build();;
+        Assert.assertEquals(North.build(), direction.turnRight(2));
+
+        direction = South.build();
+        Assert.assertEquals(East.build(), direction.turnRight(3));
+    }
 
     @Test
     public void should_get_unique_direction(){

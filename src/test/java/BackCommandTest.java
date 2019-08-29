@@ -23,5 +23,4 @@ public class BackCommandTest {
         }});
         command.run(mock);
     }
-
 }
