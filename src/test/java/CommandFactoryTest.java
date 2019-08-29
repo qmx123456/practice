@@ -25,4 +25,10 @@ public class CommandFactoryTest {
         Command command = CommandFactory.build("b:1");
         Assert.assertEquals(BackCommand.class,command.getClass());
     }
+
+    @Test
+    public void should_return_left_command(){
+        Command command = CommandFactory.build("l:2");
+        Assert.assertEquals(TurnLeftCommand.class,command.getClass());
+    }
 }

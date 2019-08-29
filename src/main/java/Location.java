@@ -1,27 +1,30 @@
 public class Location {
+    private final String north = "N";
+    private final String south = "S";
+    private final String east = "E";
+    private final String west = "W";
     private int x;
     private int y;
-    private String direction;
+    private Direction direction;
 
     public Location() {
     }
 
-    public Location(int x, int y, String direction) {
-
+    public Location(int x, int y, String directionText) {
         this.x = x;
         this.y = y;
-        this.direction = direction;
+        this.direction = DirectionFactory.build(directionText);
     }
 
     @Override
     public String toString(){
-        return x+","+y+","+direction;
+        return x+","+y+","+ direction.getDirectionText();
     }
 
     @Override
     public boolean equals(Object obj){
         Location ano = (Location) obj;
-        return x == ano.getX() &&y==ano.getY()&&direction.equals(ano.getDirection());
+        return x == ano.getX() &&y==ano.getY() && direction == ano.getDirection();
     }
     public int getX() {
         return x;
@@ -31,7 +34,7 @@ public class Location {
         return y;
     }
 
-    public String getDirection() {
+    public Direction getDirection() {
         return direction;
     }
 
@@ -39,7 +42,7 @@ public class Location {
         this.x = x;
     }
 
-    public void setDirection(String direction) {
+    public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
@@ -48,20 +51,20 @@ public class Location {
     }
 
     public void back(int step) {
-        switch (direction){
-            case "N":setY(y-step);break;
-            case "S":setY(y+step);break;
-            case "E":setX(x-step);break;
-            case "W":setX(x+step);break;
+        switch (direction.getDirectionText()){
+            case north:setY(y-step);break;
+            case south:setY(y+step);break;
+            case east:setX(x-step);break;
+            case west:setX(x+step);break;
         }
     }
 
     public void forward(int step){
-        switch (direction){
-            case "N":setY(y+step);break;
-            case "S":setY(y-step);break;
-            case "E":setX(x+step);break;
-            case "W":setX(x-step);break;
+        switch (direction.getDirectionText()){
+            case north:setY(y+step);break;
+            case south:setY(y-step);break;
+            case east:setX(x+step);break;
+            case west:setX(x-step);break;
         }
     }
 
@@ -69,5 +72,9 @@ public class Location {
         setX(ano.getX());
         setY(ano.getY());
         setDirection(ano.getDirection());
+    }
+
+    public void turnLeft(int step) {
+        direction = direction.turnLeft(step);
     }
 }

@@ -7,10 +7,10 @@ public class LocationTest {
         Location location = new Location();
         location.setX(0);
         location.setY(0);
-        location.setDirection("N");
+        location.setDirection(North.build());
         Assert.assertEquals(0, location.getX());
         Assert.assertEquals(0, location.getY());
-        Assert.assertEquals("N", location.getDirection());
+        Assert.assertEquals(North.build(), location.getDirection());
 
         Location ano = new Location(10, 10, "S");
         location.set(ano);
@@ -67,6 +67,33 @@ public class LocationTest {
         carLocation = new Location(0, 0, "W");
         carLocation.forward(1);
         Assert.assertEquals(new Location(-1, 0, "W"), carLocation);
+    }
+
+    @Test
+    public void should_turn_left() {
+        Location carLocation = new Location(0, 0, "N");
+        carLocation.turnLeft(1);
+        Assert.assertEquals(new Location(0, 0, "W"), carLocation);
+
+        carLocation = new Location(0, 0, "N");
+        carLocation.turnLeft(2);
+        Assert.assertEquals(new Location(0, 0, "S"), carLocation);
+
+        carLocation = new Location(0, 0, "N");
+        carLocation.turnLeft(3);
+        Assert.assertEquals(new Location(0, 0, "E"), carLocation);
+
+//        carLocation = new Location(0, 0, "S");
+//        carLocation.turnLeft(1);
+//        Assert.assertEquals(new Location(0, 0, "N"), carLocation);
+//
+//        carLocation = new Location(0, 0, "E");
+//        carLocation.turnLeft(1);
+//        Assert.assertEquals(new Location(0, 0, "W"), carLocation);
+//
+//        carLocation = new Location(0, 0, "W");
+//        carLocation.turnLeft(1);
+//        Assert.assertEquals(new Location(0, 0, "E"), carLocation);
     }
 
 }
