@@ -6,6 +6,7 @@ public class Location implements IBehavior {
     private int x;
     private int y;
     private Direction direction;
+    private Size size;
 
     public Location() {
     }
@@ -75,6 +76,11 @@ public class Location implements IBehavior {
     }
 
     @Override
+    public void setSize(Size size) {
+        this.size = size;
+    }
+
+    @Override
     public void turnLeft(int step) {
         direction = direction.turnLeft(step);
     }
@@ -82,5 +88,9 @@ public class Location implements IBehavior {
     @Override
     public void turnRight(int step) {
         direction = direction.turnRight(step);
+    }
+
+    public Size getSize() {
+        return size;
     }
 }

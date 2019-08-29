@@ -11,9 +11,11 @@ public class LocationTest {
         location.setX(0);
         location.setY(0);
         location.setDirection(North.build());
+        location.setSize(new Size(100,100));
         Assert.assertEquals(0, location.getX());
         Assert.assertEquals(0, location.getY());
         Assert.assertEquals(North.build(), location.getDirection());
+        Assert.assertEquals(new Size(100,100), location.getSize());
 
         Location ano = new Location(10, 10, "S");
         location.set(ano);

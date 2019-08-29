@@ -4,4 +4,6 @@ public interface IBehavior {
     void forward(int step);
     void back(int step);
     void set(Location location);
+
+    void setSize(Size size);
 }
