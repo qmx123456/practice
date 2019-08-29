@@ -7,10 +7,8 @@ public class SouthTest {
         Direction direction = South.build();
         Assert.assertEquals(East.build(), direction.turnLeft(1));
 
-        direction = South.build();
         Assert.assertEquals(North.build(), direction.turnLeft(2));
 
-        direction = South.build();
         Assert.assertEquals(West.build(), direction.turnLeft(3));
     }
     @Test
@@ -18,10 +16,8 @@ public class SouthTest {
         Direction direction = South.build();
         Assert.assertEquals(West.build(), direction.turnRight(1));
 
-        direction = South.build();;
         Assert.assertEquals(North.build(), direction.turnRight(2));
 
-        direction = South.build();
         Assert.assertEquals(East.build(), direction.turnRight(3));
     }
 
