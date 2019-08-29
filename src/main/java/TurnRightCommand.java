@@ -6,8 +6,9 @@ public class TurnRightCommand extends Command {
     }
 
     @Override
-    public void run(IBehavior location) {
+    public boolean run(IBehavior location) {
         location.turnRight(step);
+        return true;
     }
 
     public int getStep() {

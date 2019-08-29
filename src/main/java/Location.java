@@ -5,6 +5,7 @@ public class Location implements IBehavior {
     private final String west = "W";
     private Direction direction;
     private IPoint pointMar;
+    private Blocks blocks;
 
     public Location() {
         pointMar = new PointMar();
@@ -74,8 +75,9 @@ public class Location implements IBehavior {
     }
 
     @Override
-    public void setSize(Size size) {
+    public boolean setSize(Size size) {
         pointMar.setSize(size);
+        return true;
     }
 
     @Override
@@ -94,5 +96,9 @@ public class Location implements IBehavior {
 
     public void setPoint(IPoint point) {
         this.pointMar = point;
+    }
+
+    public void setBlocks(Blocks blocks) {
+        this.blocks = blocks;
     }
 }

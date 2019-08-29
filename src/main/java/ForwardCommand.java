@@ -6,8 +6,9 @@ public class ForwardCommand extends Command {
     }
 
     @Override
-    public void run(IBehavior location) {
+    public boolean run(IBehavior location) {
         location.forward(step);
+        return true;
     }
 
     public int getStep() {

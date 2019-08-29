@@ -13,7 +13,8 @@ public class SizeCommandTest {
         final IBehavior mock = context.mock(IBehavior.class);
         context.checking(new Expectations(){{
             oneOf(mock).setSize(command.getSize());
+            will(returnValue(true));
         }});
-        command.run(mock);
+        Assert.assertEquals(true, command.run(mock));
     }
 }

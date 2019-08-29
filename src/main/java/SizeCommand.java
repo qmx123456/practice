@@ -10,8 +10,8 @@ public class SizeCommand extends Command {
         size = new Size(x, y);
     }
 
-    public void run(IBehavior location) {
-        location.setSize(size);
+    public boolean run(IBehavior location) {
+        return location.setSize(size);
     }
 
     public int getX() {

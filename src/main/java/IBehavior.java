@@ -5,5 +5,5 @@ public interface IBehavior {
     void back(int step);
     void set(Location location);
 
-    void setSize(Size size);
+    boolean setSize(Size size);
 }
