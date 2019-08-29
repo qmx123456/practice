@@ -5,13 +5,15 @@ public interface IPoint {
 
     void setX(int x);
 
-    void addY(int i);
+    boolean addY(int i);
 
-    void addX(int i);
+    boolean addX(int i);
 
     void setSize(Size size);
 
     int getX();
 
     int getY();
+
+    void setBlock(Blocks blocks);
 }

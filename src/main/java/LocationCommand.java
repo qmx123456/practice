@@ -9,8 +9,7 @@ public class LocationCommand extends Command{
 
     @Override
     public boolean run(IBehavior location) {
-        location.set(this.location);
-        return true;
+        return location.set(this.location);
     }
 
     public Location getLocation() {

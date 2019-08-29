@@ -1,9 +1,9 @@
 public interface IBehavior {
     void turnLeft(int step);
     void turnRight(int step);
-    void forward(int step);
+    boolean forward(int step);
     void back(int step);
-    void set(Location location);
+    boolean set(Location location);
 
     boolean setSize(Size size);
 }

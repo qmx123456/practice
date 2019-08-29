@@ -2,6 +2,7 @@ public class PointMar implements IPoint {
     private int x;
     private int y;
     private Size size;
+    private Blocks blocks;
 
     public PointMar(int x, int y) {
         this.x = x;
@@ -19,6 +20,11 @@ public class PointMar implements IPoint {
     @Override
     public int getY() {
         return y;
+    }
+
+    @Override
+    public void setBlock(Blocks blocks) {
+        this.blocks = blocks;
     }
 
     @Override
@@ -45,13 +51,15 @@ public class PointMar implements IPoint {
     }
 
     @Override
-    public void addY(int step) {
+    public boolean addY(int step) {
         this.y += step;
+        return false;
     }
 
     @Override
-    public void addX(int step) {
+    public boolean addX(int step) {
         this.x += step;
+        return false;
     }
 
     @Override

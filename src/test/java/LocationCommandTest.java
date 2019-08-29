@@ -17,7 +17,8 @@ public class LocationCommandTest {
         final IBehavior mock = context.mock(IBehavior.class);
         context.checking(new Expectations(){{
             oneOf(mock).set(command.getLocation());
+            will(returnValue(true));
         }});
-        command.run(mock);
+        Assert.assertEquals(true, command.run(mock));
     }
 }

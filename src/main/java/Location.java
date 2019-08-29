@@ -44,21 +44,19 @@ public class Location implements IBehavior {
         }
     }
 
-    public void forward(int step){
+    @Override
+    public boolean forward(int step){
         switch (direction.getDirectionText()){
             case north:
-                pointMar.addY(step);
-                break;
+                return pointMar.addY(step);
             case south:
-                pointMar.addY(step*-1);
-                break;
+                return pointMar.addY(step*-1);
             case east:
-                pointMar.addX(step);
-                break;
+                return pointMar.addX(step);
             case west:
-                pointMar.addX(step*-1);
-                break;
+                return pointMar.addX(step*-1);
         }
+        return false;
     }
 
     public Direction getDirection() {
@@ -69,9 +67,11 @@ public class Location implements IBehavior {
         this.direction = direction;
     }
 
-    public void set(Location ano) {
+    @Override
+    public boolean set(Location ano) {
         pointMar.set(ano.getPoint());
         setDirection(ano.getDirection());
+        return true;
     }
 
     @Override
@@ -99,6 +99,6 @@ public class Location implements IBehavior {
     }
 
     public void setBlocks(Blocks blocks) {
-        this.blocks = blocks;
+        pointMar.setBlock(blocks);
     }
 }

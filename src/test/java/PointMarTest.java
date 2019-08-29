@@ -12,6 +12,10 @@ public class PointMarTest {
         pointMar.setY(2);
         Assert.assertEquals(1, pointMar.getX());
         Assert.assertEquals(2, pointMar.getY());
+
+        Blocks blocks = new Blocks(new PointMar[]{});
+        pointMar.setBlock(blocks);
+        //todo assert blocks has been changed
     }
 
     @Test
@@ -45,5 +49,19 @@ public class PointMarTest {
         point.setSize(new Size(10,10));
         point.set(new PointMar(0,-1));
         Assert.assertEquals(new PointMar(0,10), point);
+    }
+
+    @Test
+    public void should_addY(){
+        PointMar pointMar = new PointMar(0,0);
+        pointMar.addY(1);
+        Assert.assertEquals(1, pointMar.getY());
+    }
+
+    @Test
+    public void should_addX(){
+        PointMar pointMar = new PointMar(0,0);
+        pointMar.addX(1);
+        Assert.assertEquals(1, pointMar.getX());
     }
 }

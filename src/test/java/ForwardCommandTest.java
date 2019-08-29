@@ -19,8 +19,9 @@ public class ForwardCommandTest {
         final IBehavior mock = context.mock(IBehavior.class);
         context.checking(new Expectations(){{
             oneOf(mock).forward(1);
+            will(returnValue(true));
         }});
-        command.run(mock);
+        Assert.assertEquals(true,command.run(mock));
     }
 
 }
