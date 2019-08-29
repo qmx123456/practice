@@ -1,4 +1,4 @@
-public class Size {
+public class Size  {
     private int y;
     private int x;
 
@@ -19,7 +19,9 @@ public class Size {
         return y;
     }
 
+
     public int getX() {
         return x;
     }
+
 }

@@ -43,4 +43,13 @@ public class MarCarTest {
         String location = marCar.run("size:100,100 location:101,0,N");
         Assert.assertEquals("0,0,N", location);
     }
+
+    @Test
+    public void should_stop_when_blocked(){
+        PointMar[] points = new PointMar[]{new PointMar(2, 0)};
+        Blocks blocks = new Blocks(points);
+        MarCar marCar = new MarCar(blocks);
+        String location = marCar.run("size:100,100 location:0,0,E f:1 f:1 l:2");
+        Assert.assertEquals("0,1,E", location);
+    }
 }

@@ -7,43 +7,23 @@ public class LocationTest {
     private final JUnit4Mockery context = new JUnit4Mockery();
     @Test
     public void should_set_location() {
-        Location location = new Location();
-        location.setX(0);
-        location.setY(0);
-        location.setDirection(North.build());
-        location.setSize(new Size(100,100));
-        Assert.assertEquals(0, location.getX());
-        Assert.assertEquals(0, location.getY());
+        Location location = new Location(0,0,"N");
+        Assert.assertEquals(new PointMar(0,0), location.getPoint());
         Assert.assertEquals(North.build(), location.getDirection());
-        Assert.assertEquals(new Size(100,100), location.getSize());
 
-        Location ano = new Location(10, 10, "S");
+        final Size size = new Size(100, 100);
+        final Location ano = new Location(11, 0, "N");
+        final IPoint mock = context.mock(IPoint.class);
+        context.checking(new Expectations(){{
+            oneOf(mock).set(ano.getPoint());
+            oneOf(mock).setSize(size);
+        }});
+
+        location.setPoint(mock);
+        location.setSize(size);
         location.set(ano);
-        Assert.assertEquals(ano, location);
+        Assert.assertEquals(North.build(), location.getDirection());
     }
-
-    @Test
-    public void should_in_size_when_size_is_decided(){
-        Location location = new Location();
-
-        location.setSize(new Size(10,10));
-        location.set(new Location(11,0,"N"));
-        Assert.assertEquals(new Location(0,0,"N"), location);
-
-        location.setSize(new Size(10,10));
-        location.set(new Location(-1,0,"N"));
-        Assert.assertEquals(new Location(10,0,"N"), location);
-
-        location.setSize(new Size(10,10));
-        location.set(new Location(0,11,"N"));
-        Assert.assertEquals(new Location(0,0,"N"), location);
-
-        location.setSize(new Size(10,10));
-        location.set(new Location(0,-1,"N"));
-        Assert.assertEquals(new Location(0,10,"N"), location);
-    }
-
-
 
     @Test
     public void should_override_toString() {

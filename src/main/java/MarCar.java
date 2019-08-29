@@ -3,6 +3,10 @@ public class MarCar {
     public MarCar(){
         location = new Location();
     }
+
+    public MarCar(Blocks blocks) {
+    }
+
     public String run(String commands) {
         String[] split = commands.split(" ");
         for (int i=0;i<split.length;i++){
