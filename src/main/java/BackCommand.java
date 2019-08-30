@@ -7,8 +7,7 @@ public class BackCommand extends Command{
 
     @Override
     public boolean run(IBehavior location) {
-        location.back(step);
-        return true;
+        return location.back(step);
     }
 
     public int getStep() {

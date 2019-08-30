@@ -11,14 +11,16 @@ public class MarCarTest {
 
     @Test
     public void should_chan_location_after_forward(){
-        MarCar marCar = new MarCar();
+        Blocks blocks = new Blocks(new PointMar[]{new PointMar(2, 0)});
+        MarCar marCar = new MarCar(blocks);
         String location = marCar.run("size:100,100 location:0,0,N f:1");
         Assert.assertEquals("0,1,N", location);
     }
 
     @Test
     public void should_change_location_after_back(){
-        MarCar marCar = new MarCar();
+        Blocks blocks = new Blocks(new PointMar[]{new PointMar(2, 0)});
+        MarCar marCar = new MarCar(blocks);
         String location = marCar.run("size:100,100 location:0,0,N b:1");
         Assert.assertEquals("0,-1,N", location);
     }
@@ -46,8 +48,7 @@ public class MarCarTest {
 
     @Test
     public void should_stop_when_blocked(){
-        PointMar[] points = new PointMar[]{new PointMar(2, 0)};
-        Blocks blocks = new Blocks(points);
+        Blocks blocks = new Blocks(new PointMar[]{new PointMar(2, 0)});
         MarCar marCar = new MarCar(blocks);
         String location = marCar.run("size:100,100 location:0,0,E f:1 f:1 l:2");
         Assert.assertEquals("0,1,E", location);

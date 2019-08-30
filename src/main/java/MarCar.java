@@ -5,6 +5,7 @@ public class MarCar {
     }
 
     public MarCar(Blocks blocks) {
+        this();
         location.setBlocks(blocks);
     }
 

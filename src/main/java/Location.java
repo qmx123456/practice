@@ -27,21 +27,18 @@ public class Location implements IBehavior {
         return pointMar.equals(ano.getPoint()) && getDirection() == ano.getDirection();
     }
 
-    public void back(int step) {
+    public boolean back(int step) {
         switch (direction.getDirectionText()){
             case north:
-                pointMar.addY(step*-1);
-                break;
+                return pointMar.addY(step*-1);
             case south:
-                pointMar.addY(step);
-                break;
+                return pointMar.addY(step);
             case east:
-                pointMar.addX(step*-1);
-                break;
+                return pointMar.addX(step*-1);
             case west:
-                pointMar.addX(step);
-                break;
+                return pointMar.addX(step);
         }
+        return false;
     }
 
     @Override

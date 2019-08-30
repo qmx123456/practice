@@ -46,27 +46,49 @@ public class LocationTest {
     @Test
     public void should_back_when_north() {
         Location carLocation = new Location(0, 0, "N");
-        carLocation.back(1);
-        Assert.assertEquals(new Location(0, -1, "N"), carLocation);
+        context.checking(new Expectations(){{
+            oneOf(mockPoint).addY(-1);
+            will(returnValue(true));
+        }});
+        carLocation.setPoint(mockPoint);
+        boolean res = carLocation.back(1);
+        Assert.assertEquals(true, res);
     }
 
     @Test
-    public void should_back() {
-        Location carLocation = new Location(0, 0, "N");
-        carLocation.back(1);
-        Assert.assertEquals(new Location(0, -1, "N"), carLocation);
+    public void should_back_when_south() {
+        Location carLocation = new Location(0, 0, "S");
+        context.checking(new Expectations(){{
+            oneOf(mockPoint).addY(1);
+            will(returnValue(true));
+        }});
+        carLocation.setPoint(mockPoint);
+        boolean res = carLocation.back(1);
+        Assert.assertEquals(true, res);
+    }
 
-        carLocation = new Location(0, 0, "S");
-        carLocation.back(1);
-        Assert.assertEquals(new Location(0, 1, "S"), carLocation);
+    @Test
+    public void should_back_when_east() {
+        Location carLocation = new Location(0, 0, "E");
+        context.checking(new Expectations(){{
+            oneOf(mockPoint).addX(-1);
+            will(returnValue(true));
+        }});
+        carLocation.setPoint(mockPoint);
+        boolean res = carLocation.back(1);
+        Assert.assertEquals(true, res);
+    }
 
-        carLocation = new Location(0, 0, "E");
-        carLocation.back(1);
-        Assert.assertEquals(new Location(-1, 0, "E"), carLocation);
-
-        carLocation = new Location(0, 0, "W");
-        carLocation.back(1);
-        Assert.assertEquals(new Location(1, 0, "W"), carLocation);
+    @Test
+    public void should_back_when_west() {
+        Location carLocation = new Location(0, 0, "W");
+        context.checking(new Expectations(){{
+            oneOf(mockPoint).addX(1);
+            will(returnValue(true));
+        }});
+        carLocation.setPoint(mockPoint);
+        boolean res = carLocation.back(1);
+        Assert.assertEquals(true, res);
     }
 
     @Test

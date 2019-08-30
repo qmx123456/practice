@@ -20,7 +20,8 @@ public class BackCommandTest {
         final IBehavior mock = context.mock(IBehavior.class);
         context.checking(new Expectations(){{
             oneOf(mock).back(1);
+            will(returnValue(true));
         }});
-        command.run(mock);
+        Assert.assertEquals(true,command.run(mock));
     }
 }
