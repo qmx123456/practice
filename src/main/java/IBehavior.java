@@ -1,5 +1,5 @@
 public interface IBehavior {
-    void turnLeft(int step);
+    boolean turnLeft(int step);
     void turnRight(int step);
     boolean forward(int step);
     boolean back(int step);

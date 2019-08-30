@@ -7,8 +7,7 @@ public class TurnLeftCommand  extends  Command{
 
     @Override
     public boolean run(IBehavior location) {
-        location.turnLeft(step);
-        return true;
+        return location.turnLeft(step);
     }
 
     public int getStep() {

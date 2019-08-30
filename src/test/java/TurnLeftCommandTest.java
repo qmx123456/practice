@@ -21,9 +21,10 @@ public class TurnLeftCommandTest {
         context.checking(new Expectations() {
             {
                 oneOf(mock).turnLeft(1);
+                will(returnValue(true));
             }
         });
-        command.run(mock);
+        Assert.assertEquals(true,command.run(mock));
     }
 
 }
