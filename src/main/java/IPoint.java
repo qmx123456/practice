@@ -15,5 +15,5 @@ public interface IPoint {
 
     int getY();
 
-    void setBlock(Blocks blocks);
+    void setBlock(IBlock blocks);
 }

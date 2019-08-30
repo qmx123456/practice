@@ -2,7 +2,7 @@ public class PointMar implements IPoint {
     private int x;
     private int y;
     private Size size;
-    private Blocks blocks;
+    private IBlock blocks;
 
     public PointMar(int x, int y) {
         this.x = x;
@@ -23,7 +23,7 @@ public class PointMar implements IPoint {
     }
 
     @Override
-    public void setBlock(Blocks blocks) {
+    public void setBlock(IBlock blocks) {
         this.blocks = blocks;
     }
 
@@ -38,7 +38,7 @@ public class PointMar implements IPoint {
     }
 
     @Override
-    public boolean equals(Object obj){
+    public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
         PointMar ano = (PointMar) obj;
@@ -46,20 +46,42 @@ public class PointMar implements IPoint {
     }
 
     @Override
-    public String toString(){
-        return x +","+ y;
+    public String toString() {
+        return x + "," + y;
     }
 
     @Override
     public boolean addY(int step) {
+        if (isBlock(step, y, x)) return false;
         this.y += step;
+        return true;
+    }
+
+    private boolean isBlock(int step, int y, int x) {
+        int match= step>0 ?1 :-1;
+        for (int i = 1; i <= step * match; i++) {
+            if (blocks.isBlocked(x, y + i * match)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isBlockX(int step, int y, int x) {
+        int match= step>0 ?1 :-1;
+        for (int i = 1; i <= step * match; i++) {
+            if (blocks.isBlocked(x+ i * match, y )) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean addX(int step) {
+        if (isBlockX(step, y, x)) return false;
         this.x += step;
-        return false;
+        return true;
     }
 
     @Override
@@ -75,11 +97,11 @@ public class PointMar implements IPoint {
 
     private int matchWithSize(int max, int source) {
         int ano = source;
-        if (source > max){
-            ano = source - max -1;
+        if (source > max) {
+            ano = source - max - 1;
         }
-        if (source < 0){
-            ano = max+source+1;
+        if (source < 0) {
+            ano = max + source + 1;
         }
         return ano;
     }

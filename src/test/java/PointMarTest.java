@@ -1,7 +1,12 @@
+import org.jmock.Expectations;
+import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class PointMarTest {
+    private final JUnit4Mockery context = new JUnit4Mockery();
+    IBlock mockBlock = context.mock(IBlock.class);
+
     @Test
     public void should_init_point(){
         PointMar pointMar = new PointMar(0, 0);
@@ -52,16 +57,94 @@ public class PointMarTest {
     }
 
     @Test
-    public void should_addY(){
+    public void should_addY_when_not_block(){
         PointMar pointMar = new PointMar(0,0);
-        pointMar.addY(1);
+        context.checking(new Expectations(){{
+            oneOf(mockBlock).isBlocked(0, 1);
+            will(returnValue(false));
+        }});
+        pointMar.setBlock(mockBlock);
+        boolean res = pointMar.addY(1);
         Assert.assertEquals(1, pointMar.getY());
+        Assert.assertEquals(true, res);
+
+        pointMar = new PointMar(0,0);
+        context.checking(new Expectations(){{
+            oneOf(mockBlock).isBlocked(0, -1);
+            will(returnValue(false));
+        }});
+        pointMar.setBlock(mockBlock);
+        res = pointMar.addY(-1);
+        Assert.assertEquals(-1, pointMar.getY());
+        Assert.assertEquals(true, res);
     }
 
     @Test
-    public void should_addX(){
+    public void should_addY_when_block(){
         PointMar pointMar = new PointMar(0,0);
-        pointMar.addX(1);
+        context.checking(new Expectations(){{
+            oneOf(mockBlock).isBlocked(0, 1);
+            will(returnValue(true));
+        }});
+        pointMar.setBlock(mockBlock);
+        boolean res = pointMar.addY(1);
+        Assert.assertEquals(0, pointMar.getY());
+        Assert.assertEquals(false, res);
+
+        pointMar = new PointMar(0,0);
+        context.checking(new Expectations(){{
+            oneOf(mockBlock).isBlocked(0, -1);
+            will(returnValue(true));
+        }});
+        pointMar.setBlock(mockBlock);
+        res = pointMar.addY(-1);
+        Assert.assertEquals(0, pointMar.getY());
+        Assert.assertEquals(false, res);
+    }
+
+    @Test
+    public void should_addX_when_not_block(){
+        PointMar pointMar = new PointMar(0,0);
+        context.checking(new Expectations(){{
+            oneOf(mockBlock).isBlocked(1, 0);
+            will(returnValue(false));
+        }});
+        pointMar.setBlock(mockBlock);
+        boolean res = pointMar.addX(1);
         Assert.assertEquals(1, pointMar.getX());
+        Assert.assertEquals(true, res);
+
+        pointMar = new PointMar(0,0);
+        context.checking(new Expectations(){{
+            oneOf(mockBlock).isBlocked(-1, 0);
+            will(returnValue(false));
+        }});
+        pointMar.setBlock(mockBlock);
+        pointMar.addX(-1);
+        Assert.assertEquals(-1, pointMar.getX());
+        Assert.assertEquals(true, res);
+    }
+
+    @Test
+    public void should_addX_when_block(){
+        PointMar pointMar = new PointMar(0,0);
+        context.checking(new Expectations(){{
+            oneOf(mockBlock).isBlocked(1, 0);
+            will(returnValue(true));
+        }});
+        pointMar.setBlock(mockBlock);
+        boolean res = pointMar.addX(1);
+        Assert.assertEquals(0, pointMar.getX());
+        Assert.assertEquals(false, res);
+
+        pointMar = new PointMar(0,0);
+        context.checking(new Expectations(){{
+            oneOf(mockBlock).isBlocked(-1, 0);
+            will(returnValue(true));
+        }});
+        pointMar.setBlock(mockBlock);
+        res = pointMar.addX(-1);
+        Assert.assertEquals(0, pointMar.getX());
+        Assert.assertEquals(false, res);
     }
 }
