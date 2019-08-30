@@ -51,6 +51,6 @@ public class MarCarTest {
         Blocks blocks = new Blocks(new PointMar[]{new PointMar(2, 0)});
         MarCar marCar = new MarCar(blocks);
         String location = marCar.run("size:100,100 location:0,0,E f:1 f:1 l:2");
-        Assert.assertEquals("0,1,E", location);
+        Assert.assertEquals("1,0,E", location);
     }
 }
