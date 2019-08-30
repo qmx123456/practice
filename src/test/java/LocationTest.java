@@ -161,8 +161,9 @@ public class LocationTest {
             will(returnValue(East.build()));
         }});
         carLocation.setDirection(mock);
-        carLocation.turnRight(1);
+        boolean res = carLocation.turnRight(1);
         Assert.assertEquals(new Location(0, 0, "E"), carLocation);
+        Assert.assertEquals(true, res);
     }
 
 }

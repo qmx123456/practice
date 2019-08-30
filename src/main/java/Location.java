@@ -84,8 +84,9 @@ public class Location implements IBehavior {
     }
 
     @Override
-    public void turnRight(int step) {
+    public boolean turnRight(int step) {
         direction = direction.turnRight(step);
+        return true;
     }
 
     public IPoint getPoint() {
